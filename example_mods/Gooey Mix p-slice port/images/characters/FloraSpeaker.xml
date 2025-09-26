@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="FloraSpeaker.png">
+<SubTexture name="floraBop0000" x="0" y="0" width="770" height="385" frameX="-6" frameY="-18" frameWidth="800" frameHeight="450" />
+<SubTexture name="floraBop0001" x="0" y="385" width="770" height="388" frameX="-6" frameY="-15" frameWidth="800" frameHeight="450" />
+<SubTexture name="floraBop0002" x="0" y="773" width="770" height="389" frameX="-6" frameY="-14" frameWidth="800" frameHeight="450" />
+</TextureAtlas>

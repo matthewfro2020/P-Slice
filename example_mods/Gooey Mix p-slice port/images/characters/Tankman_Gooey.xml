@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="Tankman_Gooey.png">
+	<!-- Created with Adobe Animate version 23.0.0.407 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="gooeyTankman DOWN note0000" x="8" y="8" width="565" height="452" frameX="-10" frameY="-20" frameWidth="579" frameHeight="472"/>
+	<SubTexture name="gooeyTankman DOWN note0001" x="8" y="8" width="565" height="452" frameX="-10" frameY="-20" frameWidth="579" frameHeight="472"/>
+	<SubTexture name="gooeyTankman DOWN note0002" x="581" y="8" width="579" height="469" frameX="0" frameY="0" frameWidth="579" frameHeight="472"/>
+	<SubTexture name="gooeyTankman DOWN note0003" x="581" y="8" width="579" height="469" frameX="0" frameY="0" frameWidth="579" frameHeight="472"/>
+	<SubTexture name="gooeyTankman DOWN note0004" x="581" y="8" width="579" height="469" frameX="0" frameY="0" frameWidth="579" frameHeight="472"/>
+	<SubTexture name="gooeyTankman DOWN note0005" x="581" y="8" width="579" height="469" frameX="0" frameY="0" frameWidth="579" frameHeight="472"/>
+	<SubTexture name="gooeyTankman DOWN note0006" x="581" y="8" width="579" height="469" frameX="0" frameY="0" frameWidth="579" frameHeight="472"/>
+	<SubTexture name="gooeyTankman DOWN note0007" x="581" y="8" width="579" height="469" frameX="0" frameY="0" frameWidth="579" frameHeight="472"/>
+	<SubTexture name="gooeyTankman DOWN note0008" x="581" y="8" width="579" height="469" frameX="0" frameY="0" frameWidth="579" frameHeight="472"/>
+	<SubTexture name="gooeyTankman DOWN note0009" x="581" y="8" width="579" height="469" frameX="0" frameY="0" frameWidth="579" frameHeight="472"/>
+	<SubTexture name="gooeyTankman Idle Dance0000" x="1168" y="8" width="425" height="553" frameX="-1" frameY="-19" frameWidth="431" frameHeight="573"/>
+	<SubTexture name="gooeyTankman Idle Dance0001" x="1168" y="8" width="425" height="553" frameX="-1" frameY="-19" frameWidth="431" frameHeight="573"/>
+	<SubTexture name="gooeyTankman Idle Dance0002" x="1601" y="8" width="427" height="556" frameX="0" frameY="-17" frameWidth="431" frameHeight="573"/>
+	<SubTexture name="gooeyTankman Idle Dance0003" x="1601" y="8" width="427" height="556" frameX="0" frameY="-17" frameWidth="431" frameHeight="573"/>
+	<SubTexture name="gooeyTankman Idle Dance0004" x="2036" y="8" width="425" height="561" frameX="-4" frameY="-12" frameWidth="431" frameHeight="573"/>
+	<SubTexture name="gooeyTankman Idle Dance0005" x="2036" y="8" width="425" height="561" frameX="-4" frameY="-12" frameWidth="431" frameHeight="573"/>
+	<SubTexture name="gooeyTankman Idle Dance0006" x="2469" y="8" width="428" height="572" frameX="-3" frameY="-1" frameWidth="431" frameHeight="573"/>
+	<SubTexture name="gooeyTankman Idle Dance0007" x="2905" y="8" width="429" height="572" frameX="-2" frameY="-1" frameWidth="431" frameHeight="573"/>
+	<SubTexture name="gooeyTankman Idle Dance0008" x="3342" y="8" width="429" height="573" frameX="-2" frameY="0" frameWidth="431" frameHeight="573"/>
+	<SubTexture name="gooeyTankman Idle Dance0009" x="3342" y="8" width="429" height="573" frameX="-2" frameY="0" frameWidth="431" frameHeight="573"/>
+	<SubTexture name="gooeyTankman Idle Dance0010" x="3342" y="8" width="429" height="573" frameX="-2" frameY="0" frameWidth="431" frameHeight="573"/>
+	<SubTexture name="gooeyTankman Idle Dance0011" x="3342" y="8" width="429" height="573" frameX="-2" frameY="0" frameWidth="431" frameHeight="573"/>
+	<SubTexture name="gooeyTankman Idle Dance0012" x="3342" y="8" width="429" height="573" frameX="-2" frameY="0" frameWidth="431" frameHeight="573"/>
+	<SubTexture name="gooeyTankman Idle Dance0013" x="3342" y="8" width="429" height="573" frameX="-2" frameY="0" frameWidth="431" frameHeight="573"/>
+	<SubTexture name="gooeyTankman Note Left0000" x="8" y="589" width="500" height="525" frameX="0" frameY="-15" frameWidth="503" frameHeight="542"/>
+	<SubTexture name="gooeyTankman Note Left0001" x="8" y="589" width="500" height="525" frameX="0" frameY="-15" frameWidth="503" frameHeight="542"/>
+	<SubTexture name="gooeyTankman Note Left0002" x="516" y="589" width="485" height="542" frameX="-18" frameY="0" frameWidth="503" frameHeight="542"/>
+	<SubTexture name="gooeyTankman Note Left0003" x="516" y="589" width="485" height="542" frameX="-18" frameY="0" frameWidth="503" frameHeight="542"/>
+	<SubTexture name="gooeyTankman Note Left0004" x="516" y="589" width="485" height="542" frameX="-18" frameY="0" frameWidth="503" frameHeight="542"/>
+	<SubTexture name="gooeyTankman Note Left0005" x="516" y="589" width="485" height="542" frameX="-18" frameY="0" frameWidth="503" frameHeight="542"/>
+	<SubTexture name="gooeyTankman Note Left0006" x="516" y="589" width="485" height="542" frameX="-18" frameY="0" frameWidth="503" frameHeight="542"/>
+	<SubTexture name="gooeyTankman Note Left0007" x="516" y="589" width="485" height="542" frameX="-18" frameY="0" frameWidth="503" frameHeight="542"/>
+	<SubTexture name="gooeyTankman Right Note0000" x="1009" y="589" width="484" height="558" frameX="-11" frameY="-3" frameWidth="495" frameHeight="561"/>
+	<SubTexture name="gooeyTankman Right Note0001" x="1009" y="589" width="484" height="558" frameX="-11" frameY="-3" frameWidth="495" frameHeight="561"/>
+	<SubTexture name="gooeyTankman Right Note0002" x="1501" y="589" width="482" height="561" frameX="0" frameY="0" frameWidth="495" frameHeight="561"/>
+	<SubTexture name="gooeyTankman Right Note0003" x="1501" y="589" width="482" height="561" frameX="0" frameY="0" frameWidth="495" frameHeight="561"/>
+	<SubTexture name="gooeyTankman Right Note0004" x="1501" y="589" width="482" height="561" frameX="0" frameY="0" frameWidth="495" frameHeight="561"/>
+	<SubTexture name="gooeyTankman Right Note0005" x="1501" y="589" width="482" height="561" frameX="0" frameY="0" frameWidth="495" frameHeight="561"/>
+	<SubTexture name="gooeyTankman Right Note0006" x="1501" y="589" width="482" height="561" frameX="0" frameY="0" frameWidth="495" frameHeight="561"/>
+	<SubTexture name="gooeyTankman Right Note0007" x="1501" y="589" width="482" height="561" frameX="0" frameY="0" frameWidth="495" frameHeight="561"/>
+	<SubTexture name="gooeyTankman Right Note0008" x="1501" y="589" width="482" height="561" frameX="0" frameY="0" frameWidth="495" frameHeight="561"/>
+	<SubTexture name="gooeyTankman Right Note0009" x="1501" y="589" width="482" height="561" frameX="0" frameY="0" frameWidth="495" frameHeight="561"/>
+	<SubTexture name="gooeyTankman UP note0000" x="1991" y="589" width="491" height="619" frameX="0" frameY="0" frameWidth="504" frameHeight="621"/>
+	<SubTexture name="gooeyTankman UP note0001" x="1991" y="589" width="491" height="619" frameX="0" frameY="0" frameWidth="504" frameHeight="621"/>
+	<SubTexture name="gooeyTankman UP note0002" x="2490" y="589" width="497" height="611" frameX="-7" frameY="-10" frameWidth="504" frameHeight="621"/>
+	<SubTexture name="gooeyTankman UP note0003" x="2490" y="589" width="497" height="611" frameX="-7" frameY="-10" frameWidth="504" frameHeight="621"/>
+	<SubTexture name="gooeyTankman UP note0004" x="2490" y="589" width="497" height="611" frameX="-7" frameY="-10" frameWidth="504" frameHeight="621"/>
+	<SubTexture name="gooeyTankman UP note0005" x="2490" y="589" width="497" height="611" frameX="-7" frameY="-10" frameWidth="504" frameHeight="621"/>
+	<SubTexture name="gooeyTankman UP note0006" x="2490" y="589" width="497" height="611" frameX="-7" frameY="-10" frameWidth="504" frameHeight="621"/>
+	<SubTexture name="gooeyTankman UP note0007" x="2490" y="589" width="497" height="611" frameX="-7" frameY="-10" frameWidth="504" frameHeight="621"/>
+	<SubTexture name="gooeyTankman UP note0008" x="2490" y="589" width="497" height="611" frameX="-7" frameY="-10" frameWidth="504" frameHeight="621"/>
+	<SubTexture name="gooeyTankman UP note0009" x="2490" y="589" width="497" height="611" frameX="-7" frameY="-10" frameWidth="504" frameHeight="621"/>
+</TextureAtlas>

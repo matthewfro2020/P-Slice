@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="GooeyStressCut2.png">
+<SubTexture name="chickenJockey0000" x="0" y="0" width="275" height="250" frameX="-145" frameY="-152" frameWidth="450" frameHeight="450" />
+<SubTexture name="chickenJockey0001" x="275" y="0" width="278" height="257" frameX="-140" frameY="-145" frameWidth="450" frameHeight="450" />
+<SubTexture name="chickenJockey0002" x="553" y="0" width="278" height="255" frameX="-141" frameY="-147" frameWidth="450" frameHeight="450" />
+<SubTexture name="chickenJockey0003" x="0" y="257" width="278" height="256" frameX="-141" frameY="-146" frameWidth="450" frameHeight="450" />
+<SubTexture name="chickenJockey0004" x="0" y="257" width="278" height="256" frameX="-141" frameY="-146" frameWidth="450" frameHeight="450" />
+<SubTexture name="chickenJockey0005" x="0" y="257" width="278" height="256" frameX="-141" frameY="-146" frameWidth="450" frameHeight="450" />
+<SubTexture name="chickenJockey0006" x="0" y="257" width="278" height="256" frameX="-141" frameY="-146" frameWidth="450" frameHeight="450" />
+<SubTexture name="chickenJockey0007" x="0" y="257" width="278" height="256" frameX="-141" frameY="-146" frameWidth="450" frameHeight="450" />
+<SubTexture name="chickenJockey0008" x="0" y="257" width="278" height="256" frameX="-141" frameY="-146" frameWidth="450" frameHeight="450" />
+<SubTexture name="chickenJockey0009" x="0" y="257" width="278" height="256" frameX="-141" frameY="-146" frameWidth="450" frameHeight="450" />
+<SubTexture name="chickenJockey0010" x="0" y="257" width="278" height="256" frameX="-141" frameY="-146" frameWidth="450" frameHeight="450" />
+<SubTexture name="chickenJockey0011" x="0" y="257" width="278" height="256" frameX="-141" frameY="-146" frameWidth="450" frameHeight="450" />
+<SubTexture name="chickenJockey0012" x="278" y="257" width="280" height="256" frameX="-139" frameY="-146" frameWidth="450" frameHeight="450" />
+<SubTexture name="chickenJockey0013" x="558" y="257" width="289" height="249" frameX="-125" frameY="-153" frameWidth="450" frameHeight="450" />
+<SubTexture name="chickenJockey0014" x="0" y="513" width="285" height="250" frameX="-128" frameY="-152" frameWidth="450" frameHeight="450" />
+<SubTexture name="chickenJockey0015" x="285" y="513" width="282" height="259" frameX="-129" frameY="-143" frameWidth="450" frameHeight="450" />
+<SubTexture name="chickenJockey0016" x="567" y="513" width="283" height="262" frameX="-131" frameY="-140" frameWidth="450" frameHeight="450" />
+<SubTexture name="chickenJockey0017" x="0" y="775" width="282" height="263" frameX="-132" frameY="-139" frameWidth="450" frameHeight="450" />
+</TextureAtlas>
