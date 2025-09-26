@@ -44,9 +44,6 @@ typedef AnimArray = {
 
 class Character extends FlxSprite
 {
-	/**
-	 * In case a character is missing, it will use this on its place
-	**/
 	public static final DEFAULT_CHARACTER:String = 'bf';
 
 	public var animOffsets:Map<String, Array<Dynamic>>;
@@ -60,9 +57,9 @@ class Character extends FlxSprite
 	public var heyTimer:Float = 0;
 	public var specialAnim:Bool = false;
 	public var stunned:Bool = false;
-	public var singDuration:Float = 4; //Multiplier of how long a character holds the sing pose
+	public var singDuration:Float = 4;
 	public var idleSuffix:String = '';
-	public var danceIdle:Bool = false; //Character use "danceLeft" and "danceRight" instead of "idle"
+	public var danceIdle:Bool = false;
 	public var skipDance:Bool = false;
 
 	public var healthIcon:String = 'face';
@@ -77,7 +74,6 @@ class Character extends FlxSprite
 	public var hasMissAnimations:Bool = false;
 	public var vocalsFile:String = '';
 
-	//Used on Character Editor
 	public var imageFile:String = '';
 	public var jsonScale:Float = 1;
 	public var noAntialiasing:Bool = false;
@@ -93,24 +89,30 @@ class Character extends FlxSprite
 		animOffsets = new Map<String, Array<Dynamic>>();
 		this.isPlayer = isPlayer;
 		changeCharacter(character);
-		
+
 		switch(curCharacter)
 		{
 			case 'pico-blazin', 'darnell-blazin':
 				skipDance = true; 
-// --- Extra speakers --- //
-case 'flora-speaker':
-    var floraChar = new FloraSpeakerCharacter(x, y, isPlayer);
-    return floraChar;
 
-case 'flora-speaker-christmas':
-    var floraCharXmas = new FloraSpeakerChristmasCharacter(x, y, isPlayer);
-    return floraCharXmas;
+			// --- Extra speakers --- //
+			case 'flora-speaker':
+				var floraChar = new FloraSpeakerCharacter(x, y, isPlayer);
+				this.frames = floraChar.frames;
+				this.animation = floraChar.animation;
+				this.animOffsets = floraChar.animOffsets;
 
-case 'kam-speaker-stress':
-    var kamChar = new KamSpeakerStressCharacter(x, y, isPlayer);
-    return kamChar;
+			case 'flora-speaker-christmas':
+				var floraCharXmas = new FloraSpeakerChristmasCharacter(x, y, isPlayer);
+				this.frames = floraCharXmas.frames;
+				this.animation = floraCharXmas.animation;
+				this.animOffsets = floraCharXmas.animOffsets;
 
+			case 'kam-speaker-stress':
+				var kamChar = new KamSpeakerStressCharacter(x, y, isPlayer);
+				this.frames = kamChar.frames;
+				this.animation = kamChar.animation;
+				this.animOffsets = kamChar.animOffsets;
 		}
 	}
 
@@ -124,7 +126,7 @@ case 'kam-speaker-stress':
 		var path:String = Paths.getPath(characterPath, TEXT);
 		if (!NativeFileSystem.exists(path))
 		{
-			path = Paths.getSharedPath('characters/' + DEFAULT_CHARACTER + '.json'); //If a character couldn't be found, change him to BF just to prevent a crash
+			path = Paths.getSharedPath('characters/' + DEFAULT_CHARACTER + '.json');
 			missingCharacter = true;
 			missingText = new FlxText(0, 0, 300, 'ERROR:\n$character.json', 16);
 			missingText.alignment = CENTER;
@@ -186,11 +188,9 @@ case 'kam-speaker-stress':
 			updateHitbox();
 		}
 
-		// positioning
 		positionArray = json.position;
 		cameraPosition = json.camera_position;
 
-		// data
 		healthIcon = json.healthicon;
 		singDuration = json.sing_duration;
 		flipX = (json.flip_x != isPlayer);
@@ -199,18 +199,16 @@ case 'kam-speaker-stress':
 		originalFlipX = (json.flip_x == true);
 		editorIsPlayer = json._editor_isPlayer;
 
-		// antialiasing
 		noAntialiasing = (json.no_antialiasing == true);
 		antialiasing = ClientPrefs.data.antialiasing ? !noAntialiasing : false;
 
-		// animations
 		animationsArray = json.animations;
 		if(animationsArray != null && animationsArray.length > 0) {
 			for (anim in animationsArray) {
 				var animAnim:String = '' + anim.anim;
 				var animName:String = '' + anim.name;
 				var animFps:Int = anim.fps;
-				var animLoop:Bool = !!anim.loop; //Bruh
+				var animLoop:Bool = !!anim.loop;
 				var animIndices:Array<Int> = anim.indices;
 
 				if(!isAnimateAtlas)
@@ -225,9 +223,9 @@ case 'kam-speaker-stress':
 				{
 					if(animIndices != null && animIndices.length > 0)
 						atlas.anim.addBySymbolIndices(animAnim, animName, animIndices, animFps, animLoop);
-					else if (atlas.anim.symbolDictionary.exists(animName)) //? Allow us to use labels please
+					else if (atlas.anim.symbolDictionary.exists(animName))
 						atlas.anim.addBySymbol(animAnim, animName, animFps, animLoop);
-					else //? Allow us to use labels please
+					else
 						atlas.anim.addByFrameLabel(animAnim, animName, animFps, animLoop);
 				}
 				#end
@@ -239,7 +237,6 @@ case 'kam-speaker-stress':
 		#if flxanimate
 		if(isAnimateAtlas) copyAtlasValues();
 		#end
-		//trace('Loaded file to character ' + curCharacter);
 	}
 
 	override function update(elapsed:Float)
@@ -345,9 +342,6 @@ case 'kam-speaker-stress':
 
 	public var danced:Bool = false;
 
-	/**
-	 * FOR GF DANCING SHIT
-	 */
 	public function dance()
 	{
 		if (!debugMode && !skipDance && !specialAnim)
@@ -385,7 +379,6 @@ case 'kam-speaker-stress':
 			var daOffset = animOffsets.get(AnimName);
 			offset.set(daOffset[0], daOffset[1]);
 		}
-		//else offset.set(0, 0);
 
 		if (curCharacter.startsWith('gf-') || curCharacter == 'gf')
 		{
@@ -438,8 +431,6 @@ case 'kam-speaker-stress':
 		animation.addByPrefix(name, anim, 24, false);
 	}
 
-	// Atlas support
-	// special thanks ne_eo for the references, you're the goat!!
 	@:allow(states.editors.CharacterEditorState)
 	public var isAnimateAtlas(default, null):Bool = false;
 	#if flxanimate
