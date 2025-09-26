@@ -1,0 +1,111 @@
+{
+  "animations": [
+    {
+      "offsets": [0, 0],
+      "indices": [],
+      "fps": 24,
+      "anim": "idle",
+      "loop": false,
+      "name": "idle"
+    },
+    {
+      "offsets": [396, 384],
+      "indices": [],
+      "fps": 24,
+      "anim": "hurt",
+      "loop": false,
+      "name": "youFukinDick"
+    },
+    {
+      "offsets": [396, 384],
+      "indices": [12, 13, 14, 15, 16, 17, 18, 19],
+      "fps": 24,
+      "anim": "pissed",
+      "loop": true,
+      "name": "youFukinDick"
+    },
+    {
+      "offsets": [0, 0],
+      "indices": [11, 12],
+      "fps": 24,
+      "anim": "idle-hold",
+      "loop": true,
+      "name": "idle"
+    },
+    {
+      "offsets": [-10, 10],
+      "indices": [],
+      "fps": 24,
+      "anim": "singLEFT",
+      "loop": false,
+      "name": "singLEFT"
+    },
+    {
+      "offsets": [-10, 10],
+      "indices": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+      "fps": 24,
+      "anim": "singLEFT-hold",
+      "loop": true,
+      "name": "singLEFT"
+    },
+    {
+      "offsets": [0, -30],
+      "indices": [],
+      "fps": 24,
+      "anim": "singDOWN",
+      "loop": false,
+      "name": "singDOWN"
+    },
+    {
+      "offsets": [0, -30],
+      "indices": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+      "fps": 24,
+      "anim": "singDOWN-hold",
+      "loop": true,
+      "name": "singDOWN"
+    },
+    {
+      "offsets": [-6, 50],
+      "indices": [],
+      "fps": 24,
+      "anim": "singUP",
+      "loop": false,
+      "name": "singUP"
+    },
+    {
+      "offsets": [-6, 50],
+      "indices": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+      "fps": 24,
+      "anim": "singUP-hold",
+      "loop": true,
+      "name": "singUP"
+    },
+    {
+      "offsets": [0, 27],
+      "indices": [],
+      "fps": 24,
+      "anim": "singRIGHT",
+      "loop": false,
+      "name": "singRIGHT"
+    },
+    {
+      "offsets": [0, 27],
+      "indices": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+      "fps": 24,
+      "anim": "singRIGHT-hold",
+      "loop": true,
+      "name": "singRIGHT"
+    }
+  ],
+  "vocals_file": "",
+  "no_antialiasing": false,
+  "image": "characters/daddyDearest",
+  "position": [0, 0],
+  "healthicon": "dad",
+  "flip_x": false,
+  "healthbar_colors": [161, 161, 161],
+  "camera_position": [0, 0],
+  "sing_duration": 8,
+  "scale": 1,
+  "_editor_isPlayer": false
+}

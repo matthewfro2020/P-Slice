@@ -1,0 +1,71 @@
+{
+  "animations": [
+    {
+      "offsets": [-3, 172],
+      "indices": [],
+      "fps": 24,
+      "anim": "idle",
+      "loop": true,
+      "name": "idleshit"
+    },
+    {
+      "offsets": [-1, -111],
+      "indices": [],
+      "fps": 24,
+      "anim": "idle-alt",
+      "loop": true,
+      "name": "mongo"
+    },
+    {
+      "offsets": [291, 415],
+      "indices": [],
+      "fps": 24,
+      "anim": "kill",
+      "loop": false,
+      "name": "picomongo"
+    },
+    {
+      "offsets": [-2, 181],
+      "indices": [],
+      "fps": 24,
+      "anim": "singLEFT",
+      "loop": false,
+      "name": "singLEFT"
+    },
+    {
+      "offsets": [-2, 71],
+      "indices": [],
+      "fps": 24,
+      "anim": "singDOWN",
+      "loop": false,
+      "name": "singDOWN"
+    },
+    {
+      "offsets": [-2, 115],
+      "indices": [],
+      "fps": 24,
+      "anim": "singUP",
+      "loop": false,
+      "name": "singUP"
+    },
+    {
+      "offsets": [-2, 186],
+      "indices": [],
+      "fps": 24,
+      "anim": "singRIGHT",
+      "loop": false,
+      "name": "singRIGHT"
+    }
+  ],
+  "vocals_file": "",
+  "no_antialiasing": false,
+  "image": "characters/drippico",
+  "position": [0, 0],
+  "healthicon": "drippypop",
+  "flip_x": false,
+  "healthbar_colors": [200, 100, 200],
+  "camera_position": [0, 0],
+  "sing_duration": 8,
+  "scale": 1,
+  "_editor_isPlayer": false
+}

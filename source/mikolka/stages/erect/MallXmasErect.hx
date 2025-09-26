@@ -9,6 +9,9 @@ import mikolka.compatibility.VsliceOptions;
 import substates.GameOverSubstate;
 #end
 
+// Import Flora
+import funkin.play.character.FloraSpeakerCharacter;
+
 class MallXmasErect extends BaseStage
 {
 	var upperBoppers:BGSprite;
@@ -18,6 +21,7 @@ class MallXmasErect extends BaseStage
 	var erectSanta:FlxAtlasSprite;
 	var erectParents:FlxAtlasSprite;
 
+	// Flora
 	override function create()
 	{
 		var _song = PlayState.SONG;
@@ -56,12 +60,20 @@ class MallXmasErect extends BaseStage
 		add(santa);
 		setDefaultGF('gf-christmas');
 
+		if (songName == "eggnog-(gooey-mix)") {
+		// 🌟 Add Flora Speaker Character
+		flora = new FloraSpeakerCharacter();
+		flora.setPosition(600, 350); // adjust placement near tree/crowd
+		add(flora);
+                }
+
 		if(songName == "eggnog-erect" || songName == "eggnog-(pico-mix)"){
 			erectSanta = new FlxAtlasSprite(-840 +380, 150 +347,"christmas/santa_speaks_assets");
 			erectParents = new FlxAtlasSprite(100 -620, 100 + 401,"christmas/parents_shoot_assets");	
 			setEndCallback(eggnogEndCutscene);
 		}
 	}
+
 	override function createPost() {
 		super.createPost();
 		if(VsliceOptions.SHADERS){
@@ -73,6 +85,7 @@ class MallXmasErect extends BaseStage
 			gf.shader = colorShader;
 			dad.shader = colorShader;
 			santa.shader = colorShader;
+			flora.shader = colorShader; // 🌟 give Flora shader as well
 			if(erectSanta != null){
 				erectSanta.shader = santa.shader;
 				erectParents.shader = santa.shader;
@@ -83,6 +96,7 @@ class MallXmasErect extends BaseStage
 		@:privateAccess
 		if(PicoCapableStage.NENE_LIST.contains(PlayState.SONG.gfVersion)) GameOverSubstate.characterName = 'pico-christmas-dead';
 	}
+
 	override function countdownTick(count:Countdown, num:Int) everyoneDance();
 	override function beatHit() {
 		super.beatHit();
@@ -110,11 +124,11 @@ class MallXmasErect extends BaseStage
 
 		bottomBoppers.dance(true);
 		santa.dance(true);
+		flora.dance(true); // 🌟 Flora also bops with music
 	}
 
 	function eggnogEndCutscene()
 	{
-		
 		remove(santa);
 		dad.visible = false;
 		canPause = false;
@@ -136,12 +150,6 @@ class MallXmasErect extends BaseStage
 				});
 			});
 	
-	
-			new FlxTimer().start(11.3, function(tmr){
-				//PlayState.instance.tweenCameraZoom(0.73, 0.8, true, FlxEase.backOut);
-				//PlayState.instance.tweenCameraToPosition(santaDead.x + 220, santaDead.y, 0.8, FlxEase.expoOut);
-				//PlayState.instance.camGame.shake(0.007, 0.4);
-			});
 			new FlxTimer().start(11.375, function(tmr)
 			{
 				FlxG.sound.play(Paths.sound('santa_shot_n_falls'));
@@ -152,7 +160,6 @@ class MallXmasErect extends BaseStage
 				camGame.shake(0.005, 0.2);
 				camFollow_set(erectSanta.x + 160, erectSanta.y + 80);
 			});
-	
 	
 			new FlxTimer().start(15, function(tmr)
 			{

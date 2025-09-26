@@ -1,0 +1,87 @@
+{
+  "animations": [
+    {
+      "offsets": [0, 0],
+      "indices": [],
+      "fps": 12,
+      "anim": "idle",
+      "loop": true,
+      "name": "floraBop"
+    },
+    {
+      "offsets": [0, 0],
+      "indices": [],
+      "fps": 12,
+      "anim": "singLEFT",
+      "loop": false,
+      "name": "gfLeft"
+    },
+    {
+      "offsets": [0, 0],
+      "indices": [],
+      "fps": 12,
+      "anim": "singDOWN",
+      "loop": false,
+      "name": "gfDown"
+    },
+    {
+      "offsets": [0, 0],
+      "indices": [],
+      "fps": 12,
+      "anim": "singUP",
+      "loop": false,
+      "name": "gfUp"
+    },
+    {
+      "offsets": [0, 0],
+      "indices": [],
+      "fps": 12,
+      "anim": "singRIGHT",
+      "loop": false,
+      "name": "gfRight"
+    },
+    {
+      "offsets": [0, 0],
+      "indices": [],
+      "fps": 12,
+      "anim": "singLEFT-alt",
+      "loop": false,
+      "name": "bfLeft"
+    },
+    {
+      "offsets": [0, 0],
+      "indices": [],
+      "fps": 12,
+      "anim": "singDOWN-alt",
+      "loop": false,
+      "name": "bfDown"
+    },
+    {
+      "offsets": [0, 0],
+      "indices": [],
+      "fps": 12,
+      "anim": "singUP-alt",
+      "loop": false,
+      "name": "bfUp"
+    },
+    {
+      "offsets": [0, 0],
+      "indices": [],
+      "fps": 12,
+      "anim": "singRIGHT-alt",
+      "loop": false,
+      "name": "bfRight"
+    }
+  ],
+  "vocals_file": "",
+  "no_antialiasing": false,
+  "image": "characters/FloraSpeaker, characters/FloraSpeakerPoses",
+  "position": [10, 30],
+  "healthicon": "flora",
+  "flip_x": false,
+  "healthbar_colors": [161, 161, 161],
+  "camera_position": [0, 0],
+  "sing_duration": 8,
+  "scale": 1,
+  "_editor_isPlayer": false
+}

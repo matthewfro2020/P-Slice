@@ -1,0 +1,79 @@
+{
+  "animations": [
+    {
+      "offsets": [52, -6],
+      "indices": [],
+      "fps": 24,
+      "anim": "augh",
+      "loop": false,
+      "name": "tankman ARGH"
+    },
+    {
+      "offsets": [-16, -9],
+      "indices": [],
+      "fps": 24,
+      "anim": "ugh",
+      "loop": false,
+      "name": "TANKMAN UGH instance 1"
+    },
+    {
+      "offsets": [-2, 15],
+      "indices": [],
+      "fps": 24,
+      "anim": "fuck",
+      "loop": false,
+      "name": "prettyFUCK"
+    },
+    {
+      "offsets": [0, 0],
+      "indices": [],
+      "fps": 24,
+      "anim": "idle",
+      "loop": true,
+      "name": "gooeyTankman Idle Dance"
+    },
+    {
+      "offsets": [90, -13],
+      "indices": [],
+      "fps": 24,
+      "anim": "singLEFT",
+      "loop": false,
+      "name": "gooeyTankman Right Note"
+    },
+    {
+      "offsets": [63, -105],
+      "indices": [],
+      "fps": 24,
+      "anim": "singDOWN",
+      "loop": false,
+      "name": "gooeyTankman DOWN note"
+    },
+    {
+      "offsets": [48, 54],
+      "indices": [],
+      "fps": 24,
+      "anim": "singUP",
+      "loop": false,
+      "name": "gooeyTankman UP note"
+    },
+    {
+      "offsets": [-22, -28],
+      "indices": [],
+      "fps": 24,
+      "anim": "singRIGHT",
+      "loop": false,
+      "name": "gooeyTankman Note Left"
+    }
+  ],
+  "vocals_file": "",
+  "no_antialiasing": false,
+  "image": "characters/tankmanCaptain, characters/tankmanPico, characters/tankman_FUCK, characters/Tankman_Gooey",
+  "position": [0, 0],
+  "healthicon": "tankman",
+  "flip_x": true,
+  "healthbar_colors": [80, 80, 80],
+  "camera_position": [0, 0],
+  "sing_duration": 8,
+  "scale": 1,
+  "_editor_isPlayer": false
+}
