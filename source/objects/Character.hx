@@ -98,28 +98,19 @@ class Character extends FlxSprite
 		{
 			case 'pico-blazin', 'darnell-blazin':
 				skipDance = true; 
-			case 'flora-speaker':
-				// Load the custom MultiSparrowCharacter instead of default Character
-				var floraChar = new FloraSpeakerCharacter();
-				floraChar.x = x;
-				floraChar.y = y;
-				floraChar.isPlayer = isPlayer;
-				PlayState.instance.currentStage.add(floraChar);
-				return; // Stop normal JSON loading
-			case 'flora-speaker-christmas':
-				var floraChar = new FloraSpeakerChristmasCharacter();
-				floraChar.x = x;
-				floraChar.y = y;
-				floraChar.isPlayer = isPlayer;
-				PlayState.instance.currentStage.add(floraChar);
-				return;	
-			case 'kam-speaker-stress':
-    var kamChar = new KamSpeakerStressCharacter();
-    kamChar.x = x;
-    kamChar.y = y;
-    kamChar.isPlayer = isPlayer;
-    PlayState.instance.currentStage.add(kamChar);
-    return;
+// --- Extra speakers --- //
+case 'flora-speaker':
+    var floraChar = new FloraSpeakerCharacter(x, y, isPlayer);
+    return floraChar;
+
+case 'flora-speaker-christmas':
+    var floraCharXmas = new FloraSpeakerChristmasCharacter(x, y, isPlayer);
+    return floraCharXmas;
+
+case 'kam-speaker-stress':
+    var kamChar = new KamSpeakerStressCharacter(x, y, isPlayer);
+    return kamChar;
+
 		}
 	}
 
