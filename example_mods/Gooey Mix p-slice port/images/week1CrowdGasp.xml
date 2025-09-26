@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="week1CrowdGasp.png">
+	<!-- Created with Adobe Animate version 23.0.0.407 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="bit0000" x="8" y="8" width="1322" height="385" frameX="-2" frameY="-13" frameWidth="1324" frameHeight="398"/>
+	<SubTexture name="bit0001" x="1338" y="8" width="1324" height="398"/>
+	<SubTexture name="bit0002" x="2670" y="8" width="1324" height="398"/>
+	<SubTexture name="bit0003" x="8" y="414" width="1324" height="392" frameX="0" frameY="-6" frameWidth="1324" frameHeight="398"/>
+	<SubTexture name="bit0004" x="1340" y="414" width="1324" height="392" frameX="0" frameY="-6" frameWidth="1324" frameHeight="398"/>
+	<SubTexture name="bit0005" x="2672" y="414" width="1324" height="390" frameX="0" frameY="-8" frameWidth="1324" frameHeight="398"/>
+	<SubTexture name="bit0006" x="8" y="814" width="1324" height="390" frameX="0" frameY="-8" frameWidth="1324" frameHeight="398"/>
+	<SubTexture name="bit0007" x="8" y="814" width="1324" height="390" frameX="0" frameY="-8" frameWidth="1324" frameHeight="398"/>
+	<SubTexture name="bit0008" x="8" y="814" width="1324" height="390" frameX="0" frameY="-8" frameWidth="1324" frameHeight="398"/>
+	<SubTexture name="bit0009" x="8" y="814" width="1324" height="390" frameX="0" frameY="-8" frameWidth="1324" frameHeight="398"/>
+	<SubTexture name="bit0010" x="8" y="814" width="1324" height="390" frameX="0" frameY="-8" frameWidth="1324" frameHeight="398"/>
+	<SubTexture name="bit0011" x="8" y="814" width="1324" height="390" frameX="0" frameY="-8" frameWidth="1324" frameHeight="398"/>
+	<SubTexture name="bit0012" x="8" y="814" width="1324" height="390" frameX="0" frameY="-8" frameWidth="1324" frameHeight="398"/>
+	<SubTexture name="bit0013" x="8" y="814" width="1324" height="390" frameX="0" frameY="-8" frameWidth="1324" frameHeight="398"/>
+	<SubTexture name="bit0014" x="8" y="814" width="1324" height="390" frameX="0" frameY="-8" frameWidth="1324" frameHeight="398"/>
+	<SubTexture name="bit0015" x="8" y="814" width="1324" height="390" frameX="0" frameY="-8" frameWidth="1324" frameHeight="398"/>
+	<SubTexture name="bit0016" x="8" y="814" width="1324" height="390" frameX="0" frameY="-8" frameWidth="1324" frameHeight="398"/>
+	<SubTexture name="bit0017" x="8" y="814" width="1324" height="390" frameX="0" frameY="-8" frameWidth="1324" frameHeight="398"/>
+	<SubTexture name="bit0018" x="8" y="814" width="1324" height="390" frameX="0" frameY="-8" frameWidth="1324" frameHeight="398"/>
+</TextureAtlas>
