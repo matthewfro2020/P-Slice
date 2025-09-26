@@ -1,0 +1,127 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [0, 0],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "right",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [0, 0],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "down",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [0, 0],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "up",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [0, 0],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "left",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [0, 0],
+			"anim": "singLEFTmiss",
+			"fps": 24,
+			"name": "missedr",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [0, 0],
+			"anim": "singDOWNmiss",
+			"fps": 24,
+			"name": "missedd",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [0, 0],
+			"anim": "singUPmiss",
+			"fps": 24,
+			"name": "missedu",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [0, 0],
+			"anim": "singRIGHTmiss",
+			"fps": 24,
+			"name": "missedl",
+			"indices": []
+		},
+		{
+			"offsets": [0, 0],
+			"indices": [],
+			"fps": 24,
+			"anim": "idle",
+			"loop": false,
+			"name": "idle"
+		},
+		{
+			"offsets": [0, 0],
+			"indices": [10, 11, 12, 13],
+			"fps": 24,
+			"anim": "idle-loop",
+			"loop": true,
+			"name": "idle"
+		},
+		{
+			"offsets": [0, 0],
+			"indices": [4, 5, 6, 7],
+			"fps": 24,
+			"anim": "singLEFT-loop",
+			"loop": true,
+			"name": "right"
+		},
+		{
+			"offsets": [0, 0],
+			"indices": [4, 5, 6, 7],
+			"fps": 24,
+			"anim": "singDOWN-loop",
+			"loop": true,
+			"name": "down"
+		},
+		{
+			"offsets": [0, 0],
+			"indices": [4, 5, 6, 7],
+			"fps": 24,
+			"anim": "singUP-loop",
+			"loop": true,
+			"name": "up"
+		},
+		{
+			"offsets": [0, 0],
+			"indices": [4, 5, 6, 7],
+			"fps": 24,
+			"anim": "singRIGHT-loop",
+			"loop": true,
+			"name": "left"
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": false,
+	"image": "characters/GooeyCar",
+	"position": [0, 350],
+	"healthicon": "gooey",
+	"flip_x": false,
+	"healthbar_colors": [128, 240, 203],
+	"camera_position": [10, 0],
+	"sing_duration": 4,
+	"scale": 1.2,
+	"_editor_isPlayer": true
+}

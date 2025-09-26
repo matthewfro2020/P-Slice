@@ -1,0 +1,39 @@
+{
+	"animations": [
+		{
+			"offsets": [0, 0],
+			"indices": [],
+			"fps": 25,
+			"anim": "firstDeath",
+			"loop": false,
+			"name": "manimdead"
+		},
+		{
+			"offsets": [0, 0],
+			"indices": [],
+			"fps": 24,
+			"anim": "deathLoop",
+			"loop": true,
+			"name": "lbozoloop0"
+		},
+		{
+			"offsets": [0, 0],
+			"indices": [],
+			"fps": 24,
+			"anim": "deathConfirm",
+			"loop": false,
+			"name": "jesuscrist"
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": false,
+	"image": "characters/GooeyDead",
+	"position": [0, 340],
+	"healthicon": "RoxyFox",
+	"flip_x": true,
+	"healthbar_colors": [143, 255, 140],
+	"camera_position": [60, 20],
+	"sing_duration": 4,
+	"scale": 1.3,
+	"_editor_isPlayer": true
+}

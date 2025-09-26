@@ -1,0 +1,87 @@
+{
+	"animations": [
+		{
+			"offsets": [1, 10],
+			"indices": [],
+			"fps": 24,
+			"anim": "singLEFT",
+			"loop": false,
+			"name": "singLEFT"
+		},
+		{
+			"offsets": [0, -100],
+			"indices": [],
+			"fps": 24,
+			"anim": "singDOWN",
+			"loop": false,
+			"name": "singDOWN"
+		},
+		{
+			"offsets": [0, -56],
+			"indices": [],
+			"fps": 24,
+			"anim": "singUP",
+			"loop": false,
+			"name": "singUP"
+		},
+		{
+			"offsets": [2, 15],
+			"indices": [],
+			"fps": 24,
+			"anim": "singRIGHT",
+			"loop": false,
+			"name": "singRIGHT"
+		},
+		{
+			"offsets": [2, -282],
+			"indices": [],
+			"fps": 24,
+			"anim": "among",
+			"loop": false,
+			"name": "mongo"
+		},
+		{
+			"offsets": [294, 243],
+			"indices": [],
+			"fps": 24,
+			"anim": "picomongo",
+			"loop": false,
+			"name": "picomongo"
+		},
+		{
+			"offsets": [415, -25],
+			"indices": [],
+			"fps": 24,
+			"anim": "shootleft",
+			"loop": false,
+			"name": "shootleft"
+		},
+		{
+			"offsets": [2, -49],
+			"indices": [],
+			"fps": 24,
+			"anim": "shootright",
+			"loop": false,
+			"name": "shootright"
+		},
+		{
+			"offsets": [3, -283],
+			"indices": [],
+			"fps": 24,
+			"anim": "idle",
+			"loop": false,
+			"name": "mongo"
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": false,
+	"image": "characters/drippico",
+	"position": [0, -400],
+	"healthicon": "face",
+	"flip_x": false,
+	"healthbar_colors": [161, 161, 161],
+	"camera_position": [0, 100],
+	"sing_duration": 4,
+	"scale": 1,
+	"_editor_isPlayer": false
+}
