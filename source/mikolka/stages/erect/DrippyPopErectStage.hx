@@ -7,6 +7,7 @@ import states.PlayState;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.display.FlxBackdrop;
+import flixel.FlxCamera;
 
 import backend.BaseStage;
 
@@ -107,27 +108,24 @@ class DrippyPopErectStage extends BaseStage
     {
         super.createPost();
 
-        var PS = PlayState.instance;
+        // Character positions (P-Slice: set x/y directly, no cameraOffset)
+        PlayState.instance.boyfriend.x = 1350;
+        PlayState.instance.boyfriend.y = 320;
+        PlayState.instance.boyfriend.zIndex = 80;
 
-        // Boyfriend
-        PS.boyfriend.setPosition(1350, 320);
-        PS.boyfriend.cameraOffset.set(-200, -100);
-        PS.boyfriend.zIndex = 80;
+        PlayState.instance.dad.x = 700;
+        PlayState.instance.dad.y = 250;
+        PlayState.instance.dad.zIndex = 70;
 
-        // Dad
-        PS.dad.setPosition(700, 250);
-        PS.dad.cameraOffset.set(200, -20);
-        PS.dad.zIndex = 70;
-
-        // GF
-        PS.gf.setPosition(1030, 363);
-        PS.gf.cameraOffset.set(0, 0);
-        PS.gf.zIndex = 60;
+        PlayState.instance.gf.x = 1030;
+        PlayState.instance.gf.y = 363;
+        PlayState.instance.gf.zIndex = 60;
     }
 
-    override function getDefaultCamera():Float
+    // P-Slice expects FlxCamera here, not Float
+    override function getDefaultCamera():FlxCamera
     {
-        return 0.9; // from stage JSON
+        return FlxG.camera;
     }
 
     override function update(elapsed:Float):Void
@@ -139,12 +137,15 @@ class DrippyPopErectStage extends BaseStage
         mist1.y = -100 + (Math.sin(_timer * 0.3) * 80);
         mist2.y = -430 + (Math.sin(_timer * 0.3) * 70);
 
-        var PS = PlayState.instance;
-        if (PS.boyfriend.shader == null)
+        var bf = PlayState.instance.boyfriend;
+        var gf = PlayState.instance.gf;
+        var dad = PlayState.instance.dad;
+
+        if (bf != null && bf.shader == null)
         {
-            PS.boyfriend.shader = colorShaderBf;
-            PS.gf.shader = colorShaderGf;
-            PS.dad.shader = colorShaderDad;
+            bf.shader = colorShaderBf;
+            if (gf != null) gf.shader = colorShaderGf;
+            if (dad != null) dad.shader = colorShaderDad;
         }
     }
 
@@ -153,20 +154,23 @@ class DrippyPopErectStage extends BaseStage
         super.beatHit();
         if (curBeat <= 283)
         {
-            PlayState.instance.gf.playAnimation('idle-alt', false, false);
+            if (PlayState.instance.gf != null && PlayState.instance.gf.hasAnimation("idle-alt"))
+                PlayState.instance.gf.playAnim("idle-alt", false);
         }
     }
 
     override function countdownTick(count:Countdown, num:Int)
     {
         super.countdownTick(count, num);
-        PlayState.instance.gf.playAnimation('idle-alt', false, false);
+        if (PlayState.instance.gf != null && PlayState.instance.gf.hasAnimation("idle-alt"))
+            PlayState.instance.gf.playAnim("idle-alt", false);
     }
 
     // Handles GF singing notes
     public function gfSing(dir:Int, miss:Bool = false, ?suffix:String = '')
     {
         var anim:String = 'sing' + singDir[dir];
-        PlayState.instance.gf.playAnimation(anim, true, true);
+        if (PlayState.instance.gf != null && PlayState.instance.gf.hasAnimation(anim))
+            PlayState.instance.gf.playAnim(anim, true);
     }
 }
