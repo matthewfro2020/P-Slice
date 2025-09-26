@@ -1,10 +1,10 @@
 {
 	"generatedBy": "Psych Engine v1.0 - Chart Editor V-Slice Importer",
-	"charter": "LeGooey",
-	"artist": "LeGooey",
+	"charter": "ninjamuffin99 + MtH",
+	"artist": "Kawai Sprite",
 	"speed": 3,
-	"stage": "phillyTrainErect",
-	"player1": "gooey",
+	"stage": "philly",
+	"player1": "bf",
 	"player2": "pico",
 	"events": [],
 	"notes": [
@@ -927,10 +927,10 @@
 			"mustHitSection": false
 		}
 	],
-	"gfVersion": "speaker",
+	"gfVersion": "gf",
 	"format": "psych_v1_convert",
 	"bpm": 165,
 	"needsVoices": true,
-	"song": "Blammed (Gooey Mix)",
+	"song": "Blammed",
 	"offset": 0
 }
