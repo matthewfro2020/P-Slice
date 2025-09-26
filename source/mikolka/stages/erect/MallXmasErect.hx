@@ -10,7 +10,7 @@ import substates.GameOverSubstate;
 #end
 
 // Import Flora
-import funkin.play.character.FloraSpeakerCharacter;
+import objects.FloraSpeakerCharacter;
 
 class MallXmasErect extends BaseStage
 {

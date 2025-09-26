@@ -1,31 +1,55 @@
 package objects;
 
 import objects.Character;
-import states.PlayState;
+import flixel.FlxSprite;
+import flixel.FlxG;
 
+/**
+ * Psych Engine–compatible Kam Speaker Stress character.
+ */
 class KamSpeakerStressCharacter extends Character
 {
-    public function new(x:Float, y:Float, isPlayer:Bool = false)
+    public function new(x:Float, y:Float, isPlayer:Bool)
     {
-        super(x, y, 'kam-speaker-stress', isPlayer);
-        this.playAnim('idle', true);
+        super(x, y, isPlayer, 'kam-speaker-stress');
+
+        // Scale/offset adjustments if needed
+        antialiasing = true;
     }
 
-    // Called when note data tells Kam to shoot
-    public function playShoot(direction:Int)
+    override public function dance():Void
     {
-        switch (direction)
+        // Call base class dance
+        super.dance();
+
+        // Add extra behavior if you want custom animations to loop on beat
+        playAnim('idle', true);
+    }
+
+    override public function onNoteHit(note:Note):Void
+    {
+        super.onNoteHit(note);
+
+        switch (note.noteData)
         {
-            case 0: playAnim('shoot1', true);
-            case 1: playAnim('shoot2', true);
-            case 2: playAnim('shoot3', true);
-            case 3: playAnim('shoot4', true);
+            case 0: playAnim('singLEFT', true);
+            case 1: playAnim('singDOWN', true);
+            case 2: playAnim('singUP', true);
+            case 3: playAnim('singRIGHT', true);
         }
     }
 
-    override public function dance(force:Bool = false)
+    override public function onNoteMiss(note:Note):Void
     {
-        if (getAnimationName().startsWith("shoot")) return; // don’t interrupt shooting
-        super.dance(force);
+        super.onNoteMiss(note);
+
+        // Optional miss animations if you define them
+        switch (note.noteData)
+        {
+            case 0: if (hasAnimation('singLEFTmiss')) playAnim('singLEFTmiss', true);
+            case 1: if (hasAnimation('singDOWNmiss')) playAnim('singDOWNmiss', true);
+            case 2: if (hasAnimation('singUPmiss')) playAnim('singUPmiss', true);
+            case 3: if (hasAnimation('singRIGHTmiss')) playAnim('singRIGHTmiss', true);
+        }
     }
 }

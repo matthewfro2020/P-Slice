@@ -14,8 +14,8 @@ import shaders.DropShadowScreenspace;
 import mikolka.stages.scripts.PicoCapableStage;
 import mikolka.compatibility.VsliceOptions;
 import shaders.DropShadowShader;
-// Import StressSongPSlice into this stage package
-import pslice.songs.StressSongPSlice;
+// ✅ Fix import path to match your StressSongPSlice.hx
+import mikolka.stages.scripts.StressSongPSlice;
 
 class TankErect extends BaseStage {
 	var sniper:FlxSprite;
@@ -35,7 +35,7 @@ class TankErect extends BaseStage {
 		if (songName.toLowerCase().contains("stress")) {
 			stressSong = StressSongPSlice.register();
 			if (stressSong != null)
-				stressSong.onCreate(new ScriptEvent());
+				stressSong.onCreate(); // no ScriptEvent param needed
 		}
 	}
 
@@ -81,7 +81,7 @@ class TankErect extends BaseStage {
 
 		if (songName == "stress-(gooey-mix)") {
 			if (stressSong != null)
-				stressSong.onCountdownStart(new CountdownScriptEvent());
+				stressSong.onCountdownStart(); // no event param
 		}
 	}
 
@@ -89,7 +89,7 @@ class TankErect extends BaseStage {
 		super.update(elapsed);
 
 		if (songName == "stress-(gooey-mix)" && stressSong != null) {
-			stressSong.onUpdate(new UpdateScriptEvent(elapsed));
+			stressSong.onUpdate(elapsed);
 
 			// Listen for skip key
 			if (!cutsceneSkipped && PlayState.instance.controls.CUTSCENE_ADVANCE) {
@@ -97,179 +97,180 @@ class TankErect extends BaseStage {
 				stressSong.skipCutscene();
 			}
 		}
+	}
 
-		override function beatHit() {
-			super.beatHit();
-			if (curBeat % 2 == 0) {
-				sniper.animation.play('idle', true);
-				guy.animation.play('idle', true);
-			}
-			if (FlxG.random.bool(2))
-				sniper.animation.play('sip', true);
+	override function beatHit() {
+		super.beatHit();
+		if (curBeat % 2 == 0) {
+			sniper.animation.play('idle', true);
+			guy.animation.play('idle', true);
 		}
+		if (FlxG.random.bool(2))
+			sniper.animation.play('sip', true);
+	}
 
-		override function eventCalled(eventName:String, value1:String, value2:String, flValue1:Null<Float>, flValue2:Null<Float>, strumTime:Float) {
-			if (eventName == "Change Character" && VsliceOptions.SHADERS) {
-				switch (value1.toLowerCase().trim()) {
-					case 'gf' | 'girlfriend' | '2':
-						applyShader(gf, gf.curCharacter);
-					case 'dad' | 'opponent' | '1':
-						applyShader(dad, dad.curCharacter);
-					default:
-						applyShader(boyfriend, boyfriend.curCharacter);
-				}
-			}
-		}
-
-		override function createPost() {
-			if (VsliceOptions.SHADERS) {
-				applyShader(boyfriend, boyfriend.curCharacter);
-				applyShader(gf, gf.curCharacter);
-				applyShader(dad, dad.curCharacter);
-			}
-			if (!VsliceOptions.LOW_QUALITY) {
-				var bricks:BGSprite = new BGSprite('erect/bricksGround', 375, 640, 1, 1);
-				bricks.scale.set(1.15, 1.15);
-				add(bricks);
-
-				for (daGf in gfGroup) {
-					var gf:Character = cast daGf;
-					if (gf.curCharacter == 'otis-speaker') {
-						GameOverSubstate.characterName = 'pico-holding-nene-dead';
-						var firstTank:TankmenBG = new TankmenBG(20, 500, true);
-						firstTank.resetShit(20, 1500, true, false);
-						firstTank.strumTime = 10;
-						firstTank.visible = false;
-						tankmanRun.add(firstTank);
-
-						for (i in 0...TankmenBG.animationNotes.length) {
-							if (FlxG.random.bool(16)) {
-								var tankBih = tankmanRun.recycle(TankmenBG);
-								if (VsliceOptions.SHADERS)
-									applyShader(tankBih, "");
-								tankBih.strumTime = TankmenBG.animationNotes[i][0];
-								tankBih.scale.set(1, 1);
-								tankBih.updateHitbox();
-								tankBih.resetShit(500, 150, TankmenBG.animationNotes[i][1] < 2, false);
-								tankmanRun.add(tankBih);
-							}
-						}
-						break;
-					}
-				}
-			}
-
-			if (cutscene != null) {
-				cutscene.preloadCutscene();
-			}
-		}
-
-		// Hook end song to StressSongPSlice end cutscene
-		override function endSong():Void {
-			if (songName == "stress-(gooey-mix)") {
-				if (stressSong != null && stressSong.onSongEndRequest(new CountdownScriptEvent())) {
-					return; // StressSongPSlice will handle ending later
-				}
-			}
-			super.endSong();
-		}
-
-		// Hook retry to StressSongPSlice so Gooey cutscene doesn't replay
-		override function onGameOver():Void {
-			super.onGameOver();
-
-			if (songName == "stress-(gooey-mix)") {
-				if (stressSong != null) {
-					stressSong.onSongRetry(new ScriptEvent());
-				}
-			}
-		}
-
-		function applyAbotShader(sprite:FlxSprite) {
-			var rim = new DropShadowScreenspace();
-			rim.setAdjustColor(-46, -38, -25, -20);
-			rim.color = 0xFFDFEF3C;
-			rim.antialiasAmt = 0;
-			rim.attachedSprite = sprite;
-			rim.distance = 5;
-			rim.angle = 90;
-			sprite.shader = rim;
-			sprite.animation.callback = function(anim, frame, index) {
-				rim.updateFrameInfo(sprite.frame);
-				rim.curZoom = camGame.zoom;
-			};
-		}
-
-		function applyShader(sprite:FlxSprite, char_name:String) {
-			var rim = new DropShadowShader();
-			rim.setAdjustColor(-46, -38, -25, -20);
-			rim.color = 0xFFDFEF3C;
-			rim.threshold = 0.3;
-			rim.attachedSprite = sprite;
-			rim.distance = 15;
-			rim.strength = 1;
-			rim.angle = 90;
-			switch (char_name) {
-				case "bf":
-					{
-						rim.threshold = 0.1;
-						sprite.animation.callback = function(anim, frame, index) {
-							rim.updateFrameInfo(sprite.frame);
-						};
-					}
-				case "gf-tankmen":
-					{
-						rim.setAdjustColor(-42, -10, 5, -25);
-						rim.distance = 3;
-						rim.threshold = 0.1;
-						rim.altMaskImage = Paths.image("erect/masks/gfTankmen_mask").bitmap;
-						rim.maskThreshold = 1;
-						rim.useAltMask = true;
-
-						sprite.animation.callback = function(anim, frame, index) {
-							rim.updateFrameInfo(sprite.frame);
-						};
-					}
-
-				case "tankman-bloody":
-					{
-						rim.angle = 135;
-						rim.altMaskImage = Paths.image("erect/masks/tankmanCaptainBloody_mask").bitmap;
-						rim.maskThreshold = 1;
-						rim.threshold = 0.1;
-						rim.useAltMask = true;
-
-						sprite.animation.callback = function(anim, frame, index) {
-							rim.updateFrameInfo(sprite.frame);
-						};
-					}
-				case "tankman":
-					{
-						rim.angle = 135;
-						rim.threshold = 0.1;
-						rim.maskThreshold = 1;
-						rim.useAltMask = false;
-
-						sprite.animation.callback = function(anim, frame, index) {
-							rim.updateFrameInfo(sprite.frame);
-						};
-					}
-				case "nene":
-					{
-						rim.threshold = 0.1;
-						rim.angle = 90;
-						sprite.animation.callback = function(anim, frame, index) {
-							rim.updateFrameInfo(sprite.frame);
-						};
-					}
+	override function eventCalled(eventName:String, value1:String, value2:String, flValue1:Null<Float>, flValue2:Null<Float>, strumTime:Float) {
+		if (eventName == "Change Character" && VsliceOptions.SHADERS) {
+			switch (value1.toLowerCase().trim()) {
+				case 'gf' | 'girlfriend' | '2':
+					applyShader(gf, gf.curCharacter);
+				case 'dad' | 'opponent' | '1':
+					applyShader(dad, dad.curCharacter);
 				default:
-					{
-						rim.angle = 90;
-						sprite.animation.callback = function(anim, frame, index) {
-							rim.updateFrameInfo(sprite.frame);
-						};
-					}
+					applyShader(boyfriend, boyfriend.curCharacter);
 			}
-			sprite.shader = rim;
 		}
 	}
+
+	override function createPost() {
+		if (VsliceOptions.SHADERS) {
+			applyShader(boyfriend, boyfriend.curCharacter);
+			applyShader(gf, gf.curCharacter);
+			applyShader(dad, dad.curCharacter);
+		}
+		if (!VsliceOptions.LOW_QUALITY) {
+			var bricks:BGSprite = new BGSprite('erect/bricksGround', 375, 640, 1, 1);
+			bricks.scale.set(1.15, 1.15);
+			add(bricks);
+
+			for (daGf in gfGroup) {
+				var gf:Character = cast daGf;
+				if (gf.curCharacter == 'otis-speaker') {
+					GameOverSubstate.characterName = 'pico-holding-nene-dead';
+					var firstTank:TankmenBG = new TankmenBG(20, 500, true);
+					firstTank.resetShit(20, 1500, true, false);
+					firstTank.strumTime = 10;
+					firstTank.visible = false;
+					tankmanRun.add(firstTank);
+
+					for (i in 0...TankmenBG.animationNotes.length) {
+						if (FlxG.random.bool(16)) {
+							var tankBih = tankmanRun.recycle(TankmenBG);
+							if (VsliceOptions.SHADERS)
+								applyShader(tankBih, "");
+							tankBih.strumTime = TankmenBG.animationNotes[i][0];
+							tankBih.scale.set(1, 1);
+							tankBih.updateHitbox();
+							tankBih.resetShit(500, 150, TankmenBG.animationNotes[i][1] < 2, false);
+							tankmanRun.add(tankBih);
+						}
+					}
+					break;
+				}
+			}
+		}
+
+		if (cutscene != null) {
+			cutscene.preloadCutscene();
+		}
+	}
+
+	// Hook end song to StressSongPSlice end cutscene
+	override function endSong():Void {
+		if (songName == "stress-(gooey-mix)") {
+			if (stressSong != null && stressSong.onSongEndRequest()) {
+				return; // StressSongPSlice will handle ending later
+			}
+		}
+		super.endSong();
+	}
+
+	// Hook retry to StressSongPSlice so Gooey cutscene doesn't replay
+	override function onGameOver():Void {
+		super.onGameOver();
+
+		if (songName == "stress-(gooey-mix)") {
+			if (stressSong != null) {
+				stressSong.onRetry();
+			}
+		}
+	}
+
+	function applyAbotShader(sprite:FlxSprite) {
+		var rim = new DropShadowScreenspace();
+		rim.setAdjustColor(-46, -38, -25, -20);
+		rim.color = 0xFFDFEF3C;
+		rim.antialiasAmt = 0;
+		rim.attachedSprite = sprite;
+		rim.distance = 5;
+		rim.angle = 90;
+		sprite.shader = rim;
+		sprite.animation.callback = function(anim, frame, index) {
+			rim.updateFrameInfo(sprite.frame);
+			rim.curZoom = camGame.zoom;
+		};
+	}
+
+	function applyShader(sprite:FlxSprite, char_name:String) {
+		var rim = new DropShadowShader();
+		rim.setAdjustColor(-46, -38, -25, -20);
+		rim.color = 0xFFDFEF3C;
+		rim.threshold = 0.3;
+		rim.attachedSprite = sprite;
+		rim.distance = 15;
+		rim.strength = 1;
+		rim.angle = 90;
+		switch (char_name) {
+			case "bf":
+				{
+					rim.threshold = 0.1;
+					sprite.animation.callback = function(anim, frame, index) {
+						rim.updateFrameInfo(sprite.frame);
+					};
+				}
+			case "gf-tankmen":
+				{
+					rim.setAdjustColor(-42, -10, 5, -25);
+					rim.distance = 3;
+					rim.threshold = 0.1;
+					rim.altMaskImage = Paths.image("erect/masks/gfTankmen_mask").bitmap;
+					rim.maskThreshold = 1;
+					rim.useAltMask = true;
+
+					sprite.animation.callback = function(anim, frame, index) {
+						rim.updateFrameInfo(sprite.frame);
+					};
+				}
+
+			case "tankman-bloody":
+				{
+					rim.angle = 135;
+					rim.altMaskImage = Paths.image("erect/masks/tankmanCaptainBloody_mask").bitmap;
+					rim.maskThreshold = 1;
+					rim.threshold = 0.1;
+					rim.useAltMask = true;
+
+					sprite.animation.callback = function(anim, frame, index) {
+						rim.updateFrameInfo(sprite.frame);
+					};
+				}
+			case "tankman":
+				{
+					rim.angle = 135;
+					rim.threshold = 0.1;
+					rim.maskThreshold = 1;
+					rim.useAltMask = false;
+
+					sprite.animation.callback = function(anim, frame, index) {
+						rim.updateFrameInfo(sprite.frame);
+					};
+				}
+			case "nene":
+				{
+					rim.threshold = 0.1;
+					rim.angle = 90;
+					sprite.animation.callback = function(anim, frame, index) {
+						rim.updateFrameInfo(sprite.frame);
+					};
+				}
+			default:
+				{
+					rim.angle = 90;
+					sprite.animation.callback = function(anim, frame, index) {
+						rim.updateFrameInfo(sprite.frame);
+					};
+				}
+		}
+		sprite.shader = rim;
+	}
+}

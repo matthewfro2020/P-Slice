@@ -107,7 +107,7 @@ class Character extends FlxSprite
 				PlayState.instance.currentStage.add(floraChar);
 				return; // Stop normal JSON loading
 			case 'flora-speaker-christmas':
-				var floraChar = new FloraSpeakerCharacter();
+				var floraChar = new FloraSpeakerChristmasCharacter();
 				floraChar.x = x;
 				floraChar.y = y;
 				floraChar.isPlayer = isPlayer;
