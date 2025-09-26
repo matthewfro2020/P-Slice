@@ -8,6 +8,15 @@
 	"hideStoryMode": true,
 	"songs": [
 		[
+			"Bopeebo (Gooey Mix)",
+			"dad",
+			[
+				146,
+				113,
+				253
+			]
+		],
+		[
 			"Fresh (gooey mix)",
 			"dad",
 			[
@@ -17,12 +26,30 @@
 			]
 		],
 		[
+			"pico (gooey mix)",
+			"pico",
+			[
+				86,
+				253,
+				55
+			]
+		],
+		[
 			"blammed (gooey mix)",
 			"pico",
 			[
 				86,
 				253,
 				55
+			]
+		],
+		[
+			"high (gooey mix)",
+			"mom",
+			[
+				206,
+				113,
+				193
 			]
 		],
 		[
