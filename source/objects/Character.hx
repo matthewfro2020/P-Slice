@@ -1,5 +1,10 @@
 package objects;
 
+import states.PlayState;
+import objects.FloraSpeakerCharacter;
+import objects.FloraSpeakerChristmasCharacter;
+import objects.KamSpeakerStressCharacter;
+
 import backend.animation.PsychAnimationController;
 
 import flixel.util.FlxSort;
@@ -102,12 +107,19 @@ class Character extends FlxSprite
 				PlayState.instance.currentStage.add(floraChar);
 				return; // Stop normal JSON loading
 			case 'flora-speaker-christmas':
-				var floraChar = new FloraSpeakerChristmasCharacter();
+				var floraChar = new FloraSpeakerCharacter();
 				floraChar.x = x;
 				floraChar.y = y;
 				floraChar.isPlayer = isPlayer;
 				PlayState.instance.currentStage.add(floraChar);
-				return;
+				return;	
+			case 'kam-speaker-stress':
+    var kamChar = new KamSpeakerStressCharacter();
+    kamChar.x = x;
+    kamChar.y = y;
+    kamChar.isPlayer = isPlayer;
+    PlayState.instance.currentStage.add(kamChar);
+    return;
 		}
 	}
 
