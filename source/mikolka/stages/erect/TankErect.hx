@@ -15,6 +15,9 @@ import mikolka.stages.scripts.PicoCapableStage;
 import mikolka.compatibility.VsliceOptions;
 import shaders.DropShadowShader;
 
+// Import StressSongPSlice into this stage package
+import pslice.songs.StressSongPSlice;
+
 // tankmanBattlefieldErect
 class TankErect extends BaseStage
 {
@@ -24,10 +27,17 @@ class TankErect extends BaseStage
 	var tankmanRun:FlxTypedGroup<TankmenBG>;
 	var cutscene:PicoTankman;
 	var pico_stage:PicoCapableStage;
+	var stressSong:StressSongPSlice;
 
 	public function new() {
 		if (songName == "stress-(pico-mix)") pico_stage = new PicoCapableStage(true);
 		super();
+
+		// Initialize the StressSongPSlice handler
+		if (songName.toLowerCase().contains("stress")) {
+			stressSong = StressSongPSlice.register();
+			stressSong.onCreate();
+		}
 	}
 	override function create()
 	{
@@ -68,6 +78,16 @@ class TankErect extends BaseStage
 			setEndCallback(cutscene.playCutscene);
 		}
 		
+		if (songName == "stress-(gooey-mix)")
+		{
+			if (stressSong != null) stressSong.onCountdownStart();
+		}
+	}
+
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+		if (stressSong != null) stressSong.onUpdate(elapsed);
 	}
 
 	override function beatHit()
@@ -126,13 +146,11 @@ class TankErect extends BaseStage
 						if (FlxG.random.bool(16))
 						{
 							var tankBih = tankmanRun.recycle(TankmenBG);
-							if (VsliceOptions.SHADERS) applyShader(tankBih, ""); // Is this wasting resources? I don't know tbh
+							if (VsliceOptions.SHADERS) applyShader(tankBih, "");
 							tankBih.strumTime = TankmenBG.animationNotes[i][0];
 							tankBih.scale.set(1, 1);
 							tankBih.updateHitbox();
 							tankBih.resetShit(500, 150, TankmenBG.animationNotes[i][1] < 2,false);
-							// @:privateAccess
-							// tankBih.endingOffset = 
 							tankmanRun.add(tankBih);
 						}
 					}
@@ -142,7 +160,6 @@ class TankErect extends BaseStage
 		}
 		cutscene?.preloadCutscene();
 	}
-
 
 	function applyAbotShader(sprite:FlxSprite){
 		var rim = new DropShadowScreenspace();
