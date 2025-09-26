@@ -1,0 +1,17 @@
+{
+	"events": [
+		[
+			56000,
+			[
+				["SetCameraBop", "1", "2"]
+			]
+		],
+		[
+			66666,
+			[
+				["SetCameraBop", "4", "1"]
+			]
+		]
+	],
+	"format": "psych_v1_convert"
+}

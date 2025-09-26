@@ -1,0 +1,17 @@
+{
+	"events": [
+		[
+			89684.2105263157,
+			[
+				["Play Animation", "picomongo", "GF"]
+			]
+		],
+		[
+			90315.7894736841,
+			[
+				["Change Character", "gf", "drippico"]
+			]
+		]
+	],
+	"format": "psych_v1"
+}

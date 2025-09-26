@@ -1,0 +1,50 @@
+{
+  "version": "2.2.4",
+  "songName": "M.I.L.F. (Gooey Mix)",
+  "artist": "LeGooey",
+  "charter": "LeGooey",
+  "looped": false,
+  "offsets": {
+    "instrumental": 0
+  },
+  "playData": {
+    "songVariations": [    ],
+    "difficulties": ["easy", "normal", "hard"],
+    "characters": {
+      "player": "gooey-car",
+      "girlfriend": "speaker",
+      "opponent": "mom-car",
+      "instrumental": "gooey",
+      "altInstrumentals": [""],
+      "opponentVocals": [
+        "mom-car"
+      ],
+      "playerVocals": [
+        "gooey"
+      ]
+    },
+    "stage": "limoRideErect",
+    "noteStyle": "funkin",
+    "ratings": { "easy": 7, "normal": 9, "hard": 11 },
+    "album": "gooeymix1",
+    "previewStart": 0,
+    "previewEnd": 15000
+  },
+  "generatedBy": "Friday Night Funkin' - v0.5.3",
+  "timeFormat": "ms",
+  "timeChanges": [
+    {
+      "t": 0,
+      "b": 0,
+      "bpm": 180,
+      "n": 4,
+      "d": 4,
+      "bt": [
+        4,
+        4,
+        4,
+        4
+      ]
+    }
+  ]
+}

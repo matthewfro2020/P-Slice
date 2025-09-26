@@ -1,0 +1,26 @@
+{
+  "version": "2.2.4",
+  "timeFormat": "ms",
+  "artist": "LeGooey (EthanTheDoolder, NeatoNG, Lil Nas X)",
+  "charter": "LeGooey",
+  "playData": {
+    "stage": "drippypopErect",
+    "characters": {
+      "player": "gooey-drippy",
+      "girlfriend": "pico-drippy",
+      "opponent": "drippypop",
+      "instrumental": "gooey",
+      "altInstrumentals": [""]
+    },
+    "songVariations": [],
+    "difficulties": ["easy", "normal", "hard"],
+    "ratings": { "easy": 8, "normal": 10, "hard": 12},
+    "noteStyle": "funkin",
+    "album": "gooeyDrip",
+    "previewStart": 0,
+    "previewEnd": 15000
+  },
+  "songName": "Drippypop (Gooey Mix)",
+  "timeChanges": [{ "d": 4, "n": 4, "t": -1, "bt": [4, 4, 4, 4], "bpm": 190 }],
+  "generatedBy": "Chart Editor Import (FNF Legacy)"
+}

@@ -1,0 +1,32 @@
+{
+  "version": "2.2.4",
+  "timeFormat": "ms",
+  "artist": "LeGooey",
+  "charter": "LeGooey",
+  "playData": {
+    "stage": "mallXmasErect",
+    "characters": {
+      "player": "gooey-christmas",
+      "girlfriend": "speaker-christmas",
+      "opponent": "parents-christmas",
+      "instrumental": "gooey",
+      "altInstrumentals": ["pico",""],
+      "opponentVocals": [
+        "parents"
+      ],
+      "playerVocals": [
+        "gooey"
+      ]
+    },
+    "songVariations": ["erect", "pico","gooey"],
+    "ratings": { "easy": 3, "normal": 4, "hard": 6 },
+    "difficulties": ["easy", "normal", "hard"],
+    "noteStyle": "funkin",
+    "album": "gooeymix1",
+    "previewStart": 0,
+    "previewEnd": 15000
+  },
+  "songName": "Eggnog (Gooey Mix)",
+  "timeChanges": [{ "d": 4, "n": 4, "t": -1, "bt": [4, 4, 4, 4], "bpm": 150 }],
+  "generatedBy": "Chart Editor Import (FNF Legacy)"
+}
