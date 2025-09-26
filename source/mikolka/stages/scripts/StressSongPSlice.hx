@@ -2,94 +2,91 @@ package mikolka.stages.scripts;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.util.FlxTimer;
-import flixel.tweens.FlxTween;
-import flixel.tweens.FlxEase;
 import flixel.text.FlxText;
+import flixel.util.FlxTimer;
+import flixel.util.FlxColor;
+
 import states.PlayState;
+import backend.BaseStage;
 
 /**
- * Handles Gooey/Pico Stress mix events & cutscenes.
+ * Handles Gooey/Pico variations of Stress.
+ * Cutscene logic and overlays.
  */
-class StressSongPSlice {
-    public static var instance:StressSongPSlice;
-    var PS:PlayState;
-
-    var cutsceneTimer:FlxTimer;
-    var hasPlayedCutscene:Bool = false;
-    var bgSprite:FlxSprite;
-
-    public static function register():StressSongPSlice {
-        if (instance == null) instance = new StressSongPSlice();
-        return instance;
+class StressSongPSlice
+{
+    public static function register():StressSongPSlice
+    {
+        return new StressSongPSlice();
     }
 
-    public function new() {
+    var PS:PlayState;
+    var cutsceneSprite:FlxSprite;
+    var cutsceneTimer:FlxTimer;
+    var hasPlayedCutscene:Bool = false;
+
+    public function new()
+    {
         PS = PlayState.instance;
     }
 
-    // ───────────────────────────────
-    // Hooks
-    // ───────────────────────────────
-    public function onCreate() {
-        // init background cutscene sprite
-        bgSprite = new FlxSprite(0, 0).loadGraphic(Paths.image("stress/gooey_cutscene"));
-        bgSprite.scrollFactor.set();
-        bgSprite.visible = false;
-        PS.add(bgSprite);
+    // called when TankErect detects a stress song
+    public function onCreate():Void
+    {
+        cutsceneSprite = new FlxSprite().loadGraphic(Paths.image("erect/stressCutsceneOverlay"));
+        cutsceneSprite.scrollFactor.set();
+        cutsceneSprite.alpha = 0;
+        PS.add(cutsceneSprite);
     }
 
-    public function onCountdownStart() {
-        if (PS == null) return;
+    public function onCountdownStart():Void
+    {
+        if (hasPlayedCutscene) return;
 
-        var song = PS.SONG.song.toLowerCase();
-        if ((song.contains("gooey") || song.contains("pico")) && !hasPlayedCutscene) {
-            startCutscene(song);
-            hasPlayedCutscene = true;
-        }
-    }
-
-    public function onUpdate(elapsed:Float) {
-        if (PS == null) return;
-
-        if (PS.inCutscene && cutsceneTimer != null)
-            cutsceneTimer.update(elapsed);
-    }
-
-    public function onSongEndRequest():Bool {
-        var song = PS.SONG.song.toLowerCase();
-        if (song.contains("gooey")) {
-            // block ending until cutscene finishes
-            if (PS.inCutscene) return true;
-        }
-        return false;
-    }
-
-    // ───────────────────────────────
-    // Cutscene Logic
-    // ───────────────────────────────
-    function startCutscene(variation:String) {
+        hasPlayedCutscene = true;
         PS.inCutscene = true;
 
-        bgSprite.visible = true;
-        bgSprite.cameras = [PS.camHUD];
+        // fade in cutscene overlay
+        FlxG.camera.flash(FlxColor.BLACK, 1);
+        cutsceneSprite.alpha = 1;
 
-        // fade in
-        FlxTween.tween(bgSprite, {alpha: 1}, 1, {ease: FlxEase.quadInOut});
-
-        cutsceneTimer = new FlxTimer().start(8, function(_) {
-            endCutscene();
+        cutsceneTimer = new FlxTimer().start(3, function(tmr:FlxTimer)
+        {
+            skipCutscene();
         });
     }
 
-    public function skipCutscene() {
-        if (!PS.inCutscene) return;
-        if (cutsceneTimer != null) cutsceneTimer.cancel();
-        endCutscene();
+    public function onUpdate(elapsed:Float):Void
+    {
+        if (PS.inCutscene && cutsceneSprite != null && cutsceneSprite.alpha > 0)
+        {
+            cutsceneSprite.alpha -= elapsed * 0.25;
+            if (cutsceneSprite.alpha <= 0) cutsceneSprite.visible = false;
+        }
     }
 
-    function endCutscene() {
-        bgSprite.visible = false;
+    public function skipCutscene():Void
+    {
+        if (cutsceneTimer != null) cutsceneTimer.cancel();
+
+        if (cutsceneSprite != null)
+        {
+            cutsceneSprite.visible = false;
+            cutsceneSprite.alpha = 0;
+        }
+
         PS.inCutscene = false;
+        PS.startCountdown();
+    }
+
+    public function onSongEndRequest():Bool
+    {
+        // block endSong until cutscene is finished
+        if (PS.inCutscene)
+        {
+            skipCutscene();
+            return true;
+        }
+        return false;
     }
 }
