@@ -101,31 +101,31 @@ class DrippyPopErectStage extends BaseStage
         mist2.velocity.x = -50;
         mist2.scale.set(0.8, 0.8);
         add(mist2);
-
-        refresh();
     }
 
     override function createPost()
     {
         super.createPost();
 
-        // Character positions & camera offsets
-        getBoyfriend().setPosition(1350, 320);
-        getBoyfriend().cameraOffset.set(-200, -100);
-        getBoyfriend().zIndex = 80;
+        var PS = PlayState.instance;
 
-        getDad().setPosition(700, 250);
-        getDad().cameraOffset.set(200, -20);
-        getDad().zIndex = 70;
+        // Boyfriend
+        PS.boyfriend.setPosition(1350, 320);
+        PS.boyfriend.cameraOffset.set(-200, -100);
+        PS.boyfriend.zIndex = 80;
 
-        getGirlfriend().setPosition(1030, 363);
-        getGirlfriend().cameraOffset.set(0, 0);
-        getGirlfriend().zIndex = 60;
+        // Dad
+        PS.dad.setPosition(700, 250);
+        PS.dad.cameraOffset.set(200, -20);
+        PS.dad.zIndex = 70;
 
-        refresh();
+        // GF
+        PS.gf.setPosition(1030, 363);
+        PS.gf.cameraOffset.set(0, 0);
+        PS.gf.zIndex = 60;
     }
 
-    override function getDefaultCamZoom():Float
+    override function getDefaultCamera():Float
     {
         return 0.9; // from stage JSON
     }
@@ -139,15 +139,12 @@ class DrippyPopErectStage extends BaseStage
         mist1.y = -100 + (Math.sin(_timer * 0.3) * 80);
         mist2.y = -430 + (Math.sin(_timer * 0.3) * 70);
 
-        var bf = getBoyfriend();
-        var gf = getGirlfriend();
-        var dad = getDad();
-
-        if (bf != null && bf.shader == null)
+        var PS = PlayState.instance;
+        if (PS.boyfriend.shader == null)
         {
-            bf.shader = colorShaderBf;
-            if (gf != null) gf.shader = colorShaderGf;
-            if (dad != null) dad.shader = colorShaderDad;
+            PS.boyfriend.shader = colorShaderBf;
+            PS.gf.shader = colorShaderGf;
+            PS.dad.shader = colorShaderDad;
         }
     }
 
@@ -156,24 +153,20 @@ class DrippyPopErectStage extends BaseStage
         super.beatHit();
         if (curBeat <= 283)
         {
-            getGirlfriend().playAnimation('idle-alt', false, false);
+            PlayState.instance.gf.playAnimation('idle-alt', false, false);
         }
     }
 
     override function countdownTick(count:Countdown, num:Int)
     {
         super.countdownTick(count, num);
-        refresh();
-        getGirlfriend().playAnimation('idle-alt', false, false);
+        PlayState.instance.gf.playAnimation('idle-alt', false, false);
     }
 
-    /**
-     * Called manually by PlayState when GF needs to sing.
-     * Replaces the old NoteHitEvent system.
-     */
+    // Handles GF singing notes
     public function gfSing(dir:Int, miss:Bool = false, ?suffix:String = '')
     {
         var anim:String = 'sing' + singDir[dir];
-        getGirlfriend().playAnimation(anim, true, true);
+        PlayState.instance.gf.playAnimation(anim, true, true);
     }
 }
