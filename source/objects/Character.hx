@@ -92,7 +92,22 @@ class Character extends FlxSprite
 		switch(curCharacter)
 		{
 			case 'pico-blazin', 'darnell-blazin':
-				skipDance = true;
+				skipDance = true; 
+			case 'flora-speaker':
+				// Load the custom MultiSparrowCharacter instead of default Character
+				var floraChar = new FloraSpeakerCharacter();
+				floraChar.x = x;
+				floraChar.y = y;
+				floraChar.isPlayer = isPlayer;
+				PlayState.instance.currentStage.add(floraChar);
+				return; // Stop normal JSON loading
+			case 'flora-speaker-christmas':
+				var floraChar = new FloraSpeakerChristmasCharacter();
+				floraChar.x = x;
+				floraChar.y = y;
+				floraChar.isPlayer = isPlayer;
+				PlayState.instance.currentStage.add(floraChar);
+				return;
 		}
 	}
 
