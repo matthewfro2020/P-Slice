@@ -1,199 +1,95 @@
 package mikolka.stages.scripts;
 
-import flixel.FlxSprite;
-import flixel.FlxCamera;
-import flixel.text.FlxText;
-import flixel.text.FlxTextBorderStyle;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import flixel.util.FlxTimer;
-import flixel.util.FlxTimerManager;
-import openfl.display.BitmapData;
-import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.FlxG;
-
+import flixel.FlxSprite;
+import flixel.util.FlxTimer;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import flixel.text.FlxText;
 import states.PlayState;
-import backend.BaseStage;
-import objects.Character;
 
 /**
- * Handles cutscene logic for Stress variations (gooey, pico).
- * Backend-friendly port for P-Slice.
+ * Handles Gooey/Pico Stress mix events & cutscenes.
  */
 class StressSongPSlice {
-    var hasPlayedCutscene:Bool = false;
-    var hasPlayedEndCutscene:Bool = false;
-    var cutsceneSkipped:Bool = false;
-    var canSkipCutscene:Bool = false;
+    public static var instance:StressSongPSlice;
+    var PS:PlayState;
 
-    var skipText:FlxText;
+    var cutsceneTimer:FlxTimer;
+    var hasPlayedCutscene:Bool = false;
     var bgSprite:FlxSprite;
 
-    var cutsceneTimerManager:FlxTimerManager;
-    var cutsceneMusic:FlxSound;
-    var gooeyCutSound:FlxSound;
-
-    public var songId:String = "stress";
-
-    public function new() {}
-
-    // ── Hooks ──────────────────────────────────
-    public function onCreate():Void {
-        hasPlayedCutscene = false;
-        hasPlayedEndCutscene = false;
-        cutsceneSkipped = false;
-        canSkipCutscene = false;
+    public static function register():StressSongPSlice {
+        if (instance == null) instance = new StressSongPSlice();
+        return instance;
     }
 
-    public function onRetry():Void {
-        hasPlayedCutscene = true;
+    public function new() {
+        PS = PlayState.instance;
     }
 
-    public function onCountdownStart():Void {
-        var PS = PlayState.instance;
+    // ───────────────────────────────
+    // Hooks
+    // ───────────────────────────────
+    public function onCreate() {
+        // init background cutscene sprite
+        bgSprite = new FlxSprite(0, 0).loadGraphic(Paths.image("stress/gooey_cutscene"));
+        bgSprite.scrollFactor.set();
+        bgSprite.visible = false;
+        PS.add(bgSprite);
+    }
+
+    public function onCountdownStart() {
         if (PS == null) return;
 
-        if (PS.currentVariation == 'gooey' && !hasPlayedCutscene) {
-            preloadGooeyStressCutscene();
-            gooeyStressCutscene();
-            return;
-        }
-        var isPico = (PS.currentVariation == 'pico');
-        if (!isPico) hasPlayedCutscene = true;
-        if (!hasPlayedCutscene) {
+        var song = PS.SONG.song.toLowerCase();
+        if ((song.contains("gooey") || song.contains("pico")) && !hasPlayedCutscene) {
+            startCutscene(song);
             hasPlayedCutscene = true;
-            startVideo(isPico);
         }
     }
 
-    public function onUpdate(elapsed:Float):Void {
-        var PS = PlayState.instance;
+    public function onUpdate(elapsed:Float) {
         if (PS == null) return;
 
-        // ✅ Automatic skip handling
-        if (PS.isInCutscene && PS.currentVariation == 'gooey') {
-            if (PS.controls.ACCEPT && !cutsceneSkipped) {
-                if (!canSkipCutscene) {
-                    if (skipText != null) FlxTween.tween(skipText, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
-                    new FlxTimer().start(0.5, _ -> canSkipCutscene = true);
-                } else {
-                    skipCutscene();
-                }
-            }
-        }
-
-        if (PS.isInCutscene && cutsceneTimerManager != null) cutsceneTimerManager.update(elapsed);
+        if (PS.inCutscene && cutsceneTimer != null)
+            cutsceneTimer.update(elapsed);
     }
 
     public function onSongEndRequest():Bool {
-        var PS = PlayState.instance;
-        if (PS == null) return false;
-
-        if (PS.currentVariation == 'pico') return false;
-        if (hasPlayedEndCutscene) { hasPlayedEndCutscene = false; return false; }
-        hasPlayedEndCutscene = true;
-
-        bgSprite = new FlxSprite(0,0);
-        bgSprite.makeGraphic(2000, 2500, 0xFF000000);
-        bgSprite.cameras = [PS.camCutscene];
-        bgSprite.alpha = 0;
-        PS.add(bgSprite);
-        PS.refresh();
-
-        startEndCutscene();
-        return true;
+        var song = PS.SONG.song.toLowerCase();
+        if (song.contains("gooey")) {
+            // block ending until cutscene finishes
+            if (PS.inCutscene) return true;
+        }
+        return false;
     }
 
-    // ── Video ──────────────────────────────────
-    function startVideo(usePicoVideo:Bool):Void {
-        var path = usePicoVideo ? 'stressPicoCutscene' : 'stressCutscene';
-        FlxG.sound.play(path); // Replace with your video handler if available
-    }
+    // ───────────────────────────────
+    // Cutscene Logic
+    // ───────────────────────────────
+    function startCutscene(variation:String) {
+        PS.inCutscene = true;
 
-    // ── Gooey Intro Cutscene ───────────────────
-    function preloadGooeyStressCutscene():Void {
-        var PS = PlayState.instance;
-        if (PS == null) return;
+        bgSprite.visible = true;
+        bgSprite.cameras = [PS.camHUD];
 
-        skipText = new FlxText(936, 618, 0, 'Skip [ ENTER ]', 20);
-        skipText.setFormat(Paths.font('vcr.ttf'), 40, 0xFFFFFFFF, "right", FlxTextBorderStyle.OUTLINE, 0xFF000000);
-        skipText.alpha = 0;
-        PS.add(skipText);
+        // fade in
+        FlxTween.tween(bgSprite, {alpha: 1}, 1, {ease: FlxEase.quadInOut});
 
-        PS.isInCutscene = true;
-        if (PS.camHUD != null) PS.camHUD.visible = false;
-    }
-
-    function gooeyStressCutscene():Void {
-        cutsceneTimerManager = new FlxTimerManager();
-
-        new FlxTimer(cutsceneTimerManager).start(60/24, _ -> {
-            gooeyCutSound = FlxG.sound.load(Paths.sound('stressGooeyCutscene/lines/2'));
-            gooeyCutSound.play();
-        });
-
-        new FlxTimer(cutsceneTimerManager).start(635/24, _ -> {
-            finalizeGooeyCutscene();
-            PlayState.instance.startCountdown();
+        cutsceneTimer = new FlxTimer().start(8, function(_) {
+            endCutscene();
         });
     }
 
-    function finalizeGooeyCutscene():Void {
-        var PS = PlayState.instance;
-        if (PS == null) return;
-
-        canSkipCutscene = false;
-        hasPlayedCutscene = true;
-        cutsceneSkipped = true;
-        PS.isInCutscene = false;
-        if (PS.camHUD != null) PS.camHUD.visible = true;
-        if (cutsceneMusic != null) cutsceneMusic.stop();
-        if (skipText != null) skipText.visible = false;
+    public function skipCutscene() {
+        if (!PS.inCutscene) return;
+        if (cutsceneTimer != null) cutsceneTimer.cancel();
+        endCutscene();
     }
 
-    // ── Skip Cutscene (public) ─────────────────
-    public function skipCutscene():Void {
-        var PS = PlayState.instance;
-        if (PS == null || PS.currentVariation != 'gooey') return;
-
-        cutsceneSkipped = true;
-        hasPlayedCutscene = true;
-        if (cutsceneMusic != null) cutsceneMusic.fadeOut(0.5, 0);
-        if (gooeyCutSound != null) gooeyCutSound.fadeOut(0.5, 0);
-
-        new FlxTimer().start(0.5, _ -> {
-            PS.startCountdown();
-            if (skipText != null) skipText.visible = false;
-            PS.justUnpaused = true;
-        });
-    }
-
-    // ── End Cutscene ───────────────────────────
-    function startEndCutscene():Void {
-        var PS = PlayState.instance;
-        if (PS == null) return;
-
-        cutsceneTimerManager = new FlxTimerManager();
-        PS.isInCutscene = true;
-        if (PS.camHUD != null) PS.camHUD.visible = false;
-
-        var tankmanEnding = makeSparrowSprite('characters/TankmanEndingSprite');
-        PS.add(tankmanEnding);
-
-        new FlxTimer(cutsceneTimerManager).start(320/24, _ -> {
-            PS.endSong(true);
-        });
-    }
-
-    // ── Helpers ────────────────────────────────
-    static function makeSparrowSprite(id:String):FlxSprite {
-        var s = new FlxSprite();
-        s.frames = FlxAtlasFrames.fromSparrow(BitmapData.fromFile(id+".png"), id+".xml");
-        return s;
-    }
-
-    public static function register():StressSongPSlice {
-        var b = new StressSongPSlice();
-        return b;
+    function endCutscene() {
+        bgSprite.visible = false;
+        PS.inCutscene = false;
     }
 }
