@@ -70,7 +70,8 @@ class EventLoader extends BaseStage {
 			case 'schoolPico': new SchoolErect();					//Week 6 Special - Pico
 			case 'schoolEvilErect': new SchoolEvilErect();			//Week 6 Special - Thorns
 			case 'tankmanBattlefieldErect': new TankErect();		//Week 7 Special
-			case 'phillyStreetsErect': new PhillyStreetsErect(); 	//Weekend 1 Special 
+			case 'phillyStreetsErect': new PhillyStreetsErect(); 	//Weekend 1 Special
+			case 'drippypopErect': new DrippyPopErectStage(); 	//Weekend 1 Special 
             default: null;
 		};
         if(currentStage == null) addNene = false;
