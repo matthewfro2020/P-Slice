@@ -14,13 +14,11 @@ import shaders.DropShadowScreenspace;
 import mikolka.stages.scripts.PicoCapableStage;
 import mikolka.compatibility.VsliceOptions;
 import shaders.DropShadowShader;
-
 // Import StressSongPSlice into this stage package
 import pslice.songs.StressSongPSlice;
 
 // tankmanBattlefieldErect
-class TankErect extends BaseStage
-{
+class TankErect extends BaseStage {
 	var sniper:FlxSprite;
 	var guy:FlxSprite;
 	var tankmanRim:DropShadowShader;
@@ -30,7 +28,8 @@ class TankErect extends BaseStage
 	var stressSong:StressSongPSlice;
 
 	public function new() {
-		if (songName == "stress-(pico-mix)") pico_stage = new PicoCapableStage(true);
+		if (songName == "stress-(pico-mix)")
+			pico_stage = new PicoCapableStage(true);
 		super();
 
 		// Initialize the StressSongPSlice handler
@@ -39,8 +38,8 @@ class TankErect extends BaseStage
 			stressSong.onCreate();
 		}
 	}
-	override function create()
-	{
+
+	override function create() {
 		super.create();
 
 		var bg:BGSprite = new BGSprite('erect/bg', -985, -805, 1, 1);
@@ -63,47 +62,48 @@ class TankErect extends BaseStage
 		tankmanRun = new FlxTypedGroup<TankmenBG>();
 		add(tankmanRun);
 		if (PicoCapableStage.instance != null)
-			PicoCapableStage.instance.onABotInit.addOnce( (pico) ->{
-			applyAbotShader(pico.abot.speaker);
-			applyShader(pico.abot.bg,"");
-		});
-		if (songName == "stress-(pico-mix)")
-		{
+			PicoCapableStage.instance.onABotInit.addOnce((pico) -> {
+				applyAbotShader(pico.abot.speaker);
+				applyShader(pico.abot.bg, "");
+			});
+		if (songName == "stress-(pico-mix)") {
 			pico_stage.create();
 			game.stages.remove(pico_stage);
-			game.stages.insert(1,pico_stage);
-			StickerSubState.STICKER_SET = "stickers-set-2"; //? yep, it's pico time!
+			game.stages.insert(1, pico_stage);
+			StickerSubState.STICKER_SET = "stickers-set-2"; // ? yep, it's pico time!
 			this.cutscene = new PicoTankman(this);
-			if(!seenCutscene) setStartCallback(VideoCutscene.playVideo.bind('stressPicoCutscene',startCountdown));
+			if (!seenCutscene)
+				setStartCallback(VideoCutscene.playVideo.bind('stressPicoCutscene', startCountdown));
 			setEndCallback(cutscene.playCutscene);
 		}
-		
-		if (songName == "stress-(gooey-mix)")
-		{
-			if (stressSong != null) stressSong.onCountdownStart();
+
+		if (songName == "stress-(gooey-mix)") {
+			if (stressSong != null)
+				stressSong.onCountdownStart();
 		}
 	}
 
-	override function update(elapsed:Float)
-	{
+	override function update(elapsed:Float) {
 		super.update(elapsed);
-		if (stressSong != null) stressSong.onUpdate(elapsed);
+		if (songName == "stress-(gooey-mix)") {
+			if (stressSong != null)
+				stressSong.onUpdate(elapsed);
+		}
 	}
 
-	override function beatHit()
-	{
+	override function beatHit() {
 		super.beatHit();
-		if (curBeat % 2 == 0)
-		{
+		if (curBeat % 2 == 0) {
 			sniper.animation.play('idle', true);
 			guy.animation.play('idle', true);
 		}
 		if (FlxG.random.bool(2))
 			sniper.animation.play('sip', true);
 	}
+
 	override function eventCalled(eventName:String, value1:String, value2:String, flValue1:Null<Float>, flValue2:Null<Float>, strumTime:Float) {
-		if(eventName == "Change Character" && VsliceOptions.SHADERS){
-			switch(value1.toLowerCase().trim()) {
+		if (eventName == "Change Character" && VsliceOptions.SHADERS) {
+			switch (value1.toLowerCase().trim()) {
 				case 'gf' | 'girlfriend' | '2':
 					applyShader(gf, gf.curCharacter);
 				case 'dad' | 'opponent' | '1':
@@ -114,43 +114,36 @@ class TankErect extends BaseStage
 		}
 	}
 
-	override function createPost()
-	{
-		if (VsliceOptions.SHADERS)
-		{
+	override function createPost() {
+		if (VsliceOptions.SHADERS) {
 			applyShader(boyfriend, boyfriend.curCharacter);
 			applyShader(gf, gf.curCharacter);
 			applyShader(dad, dad.curCharacter);
-			
 		}
-		if (!VsliceOptions.LOW_QUALITY)
-		{
+		if (!VsliceOptions.LOW_QUALITY) {
 			var bricks:BGSprite = new BGSprite('erect/bricksGround', 375, 640, 1, 1);
 			bricks.scale.set(1.15, 1.15);
 			add(bricks);
 
-			for (daGf in gfGroup)
-			{
+			for (daGf in gfGroup) {
 				var gf:Character = cast daGf;
-				if (gf.curCharacter == 'otis-speaker')
-				{
+				if (gf.curCharacter == 'otis-speaker') {
 					GameOverSubstate.characterName = 'pico-holding-nene-dead';
 					var firstTank:TankmenBG = new TankmenBG(20, 500, true);
-					firstTank.resetShit(20, 1500, true,false);
+					firstTank.resetShit(20, 1500, true, false);
 					firstTank.strumTime = 10;
 					firstTank.visible = false;
 					tankmanRun.add(firstTank);
 
-					for (i in 0...TankmenBG.animationNotes.length)
-					{
-						if (FlxG.random.bool(16))
-						{
+					for (i in 0...TankmenBG.animationNotes.length) {
+						if (FlxG.random.bool(16)) {
 							var tankBih = tankmanRun.recycle(TankmenBG);
-							if (VsliceOptions.SHADERS) applyShader(tankBih, "");
+							if (VsliceOptions.SHADERS)
+								applyShader(tankBih, "");
 							tankBih.strumTime = TankmenBG.animationNotes[i][0];
 							tankBih.scale.set(1, 1);
 							tankBih.updateHitbox();
-							tankBih.resetShit(500, 150, TankmenBG.animationNotes[i][1] < 2,false);
+							tankBih.resetShit(500, 150, TankmenBG.animationNotes[i][1] < 2, false);
 							tankmanRun.add(tankBih);
 						}
 					}
@@ -158,10 +151,20 @@ class TankErect extends BaseStage
 				}
 			}
 		}
-		cutscene?.preloadCutscene();
+		cutscene ? .preloadCutscene();
 	}
 
-	function applyAbotShader(sprite:FlxSprite){
+	// Hook end song to StressSongPSlice end cutscene
+	override function endSong():Void {
+		if (songName == "stress-(gooey-mix)") {
+			if (stressSong != null && stressSong.onSongEndRequest()) {
+				return; // StressSongPSlice will handle ending later
+			}
+		}
+		super.endSong();
+	}
+
+	function applyAbotShader(sprite:FlxSprite) {
 		var rim = new DropShadowScreenspace();
 		rim.setAdjustColor(-46, -38, -25, -20);
 		rim.color = 0xFFDFEF3C;
@@ -170,14 +173,13 @@ class TankErect extends BaseStage
 		rim.distance = 5;
 		rim.angle = 90;
 		sprite.shader = rim;
-		sprite.animation.callback = function(anim, frame, index)
-		{
+		sprite.animation.callback = function(anim, frame, index) {
 			rim.updateFrameInfo(sprite.frame);
 			rim.curZoom = camGame.zoom;
 		};
 	}
-	function applyShader(sprite:FlxSprite, char_name:String)
-	{
+
+	function applyShader(sprite:FlxSprite, char_name:String) {
 		var rim = new DropShadowShader();
 		rim.setAdjustColor(-46, -38, -25, -20);
 		rim.color = 0xFFDFEF3C;
@@ -186,13 +188,11 @@ class TankErect extends BaseStage
 		rim.distance = 15;
 		rim.strength = 1;
 		rim.angle = 90;
-		switch (char_name)
-		{
+		switch (char_name) {
 			case "bf":
 				{
 					rim.threshold = 0.1;
-					sprite.animation.callback = function(anim, frame, index)
-					{
+					sprite.animation.callback = function(anim, frame, index) {
 						rim.updateFrameInfo(sprite.frame);
 					};
 				}
@@ -205,8 +205,7 @@ class TankErect extends BaseStage
 					rim.maskThreshold = 1;
 					rim.useAltMask = true;
 
-					sprite.animation.callback = function(anim, frame, index)
-					{
+					sprite.animation.callback = function(anim, frame, index) {
 						rim.updateFrameInfo(sprite.frame);
 					};
 				}
@@ -219,8 +218,7 @@ class TankErect extends BaseStage
 					rim.threshold = 0.1;
 					rim.useAltMask = true;
 
-					sprite.animation.callback = function(anim, frame, index)
-					{
+					sprite.animation.callback = function(anim, frame, index) {
 						rim.updateFrameInfo(sprite.frame);
 					};
 				}
@@ -231,8 +229,7 @@ class TankErect extends BaseStage
 					rim.maskThreshold = 1;
 					rim.useAltMask = false;
 
-					sprite.animation.callback = function(anim, frame, index)
-					{
+					sprite.animation.callback = function(anim, frame, index) {
 						rim.updateFrameInfo(sprite.frame);
 					};
 				}
@@ -240,21 +237,18 @@ class TankErect extends BaseStage
 				{
 					rim.threshold = 0.1;
 					rim.angle = 90;
-					sprite.animation.callback = function(anim, frame, index)
-					{
+					sprite.animation.callback = function(anim, frame, index) {
 						rim.updateFrameInfo(sprite.frame);
 					};
 				}
 			default:
 				{
 					rim.angle = 90;
-					sprite.animation.callback = function(anim, frame, index)
-					{
+					sprite.animation.callback = function(anim, frame, index) {
 						rim.updateFrameInfo(sprite.frame);
 					};
 				}
 		}
 		sprite.shader = rim;
 	}
-
 }
