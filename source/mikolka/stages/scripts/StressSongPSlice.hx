@@ -1,92 +1,112 @@
 package mikolka.stages.scripts;
 
+import states.PlayState;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.text.FlxText;
 import flixel.util.FlxTimer;
-import flixel.util.FlxColor;
-
-import states.PlayState;
-import backend.BaseStage;
+import shaders.AdjustColorShader;
 
 /**
- * Handles Gooey/Pico variations of Stress.
- * Cutscene logic and overlays.
+ * Handles Stress gooey cutscene + mechanics (Psych 1.0.4 fixed)
  */
-class StressSongPSlice
-{
-    public static function register():StressSongPSlice
-    {
-        return new StressSongPSlice();
+class StressSongPSlice {
+    public static var instance:StressSongPSlice;
+    var PS:PlayState;
+
+    var hasPlayedCutscene:Bool = false;
+    var cutsceneTimer:FlxTimer;
+    var bgSprite:FlxSprite;
+
+    public static function register():StressSongPSlice {
+        if (instance == null) instance = new StressSongPSlice();
+        return instance;
     }
 
-    var PS:PlayState;
-    var cutsceneSprite:FlxSprite;
-    var cutsceneTimer:FlxTimer;
-    var hasPlayedCutscene:Bool = false;
-
-    public function new()
-    {
+    public function new() {
         PS = PlayState.instance;
     }
 
-    // called when TankErect detects a stress song
-    public function onCreate():Void
-    {
-        cutsceneSprite = new FlxSprite().loadGraphic(Paths.image("erect/stressCutsceneOverlay"));
-        cutsceneSprite.scrollFactor.set();
-        cutsceneSprite.alpha = 0;
-        PS.add(cutsceneSprite);
+    // Called from TankErect.new()
+    public function onCreate():Void {
+        var song = PS.SONG.song.toLowerCase();
+        if (song.contains("stress")) {
+            trace("StressSongPSlice: onCreate called for " + song);
+        }
     }
 
-    public function onCountdownStart():Void
-    {
-        if (hasPlayedCutscene) return;
+    // Start countdown setup
+    public function onCountdownStart():Void {
+        var song = PS.SONG.song.toLowerCase();
 
-        hasPlayedCutscene = true;
-        PS.inCutscene = true;
+        if (song.contains("gooey") && !hasPlayedCutscene) {
+            hasPlayedCutscene = true;
+            startCutscene();
+        }
+    }
 
-        // fade in cutscene overlay
-        FlxG.camera.flash(FlxColor.BLACK, 1);
-        cutsceneSprite.alpha = 1;
+    public function onUpdate(elapsed:Float):Void {
+        // If running a cutscene, tick its timer
+        if (PS.inCutscene && cutsceneTimer != null) {
+            cutsceneTimer.active = true;
+        }
 
-        cutsceneTimer = new FlxTimer().start(3, function(tmr:FlxTimer)
-        {
+        // Skip cutscene manually if player presses ACCEPT (ENTER)
+        if (PS.inCutscene && PS.controls.ACCEPT) {
             skipCutscene();
-        });
-    }
-
-    public function onUpdate(elapsed:Float):Void
-    {
-        if (PS.inCutscene && cutsceneSprite != null && cutsceneSprite.alpha > 0)
-        {
-            cutsceneSprite.alpha -= elapsed * 0.25;
-            if (cutsceneSprite.alpha <= 0) cutsceneSprite.visible = false;
+            endCutscene();
         }
     }
 
-    public function skipCutscene():Void
-    {
-        if (cutsceneTimer != null) cutsceneTimer.cancel();
-
-        if (cutsceneSprite != null)
-        {
-            cutsceneSprite.visible = false;
-            cutsceneSprite.alpha = 0;
+    // Called on beat updates if needed
+    public function skipCutscene():Void {
+        if (PS.inCutscene) {
+            PS.inCutscene = false;
+            if (bgSprite != null) {
+                PS.remove(bgSprite, true);
+                bgSprite = null;
+            }
+            if (cutsceneTimer != null) {
+                cutsceneTimer.cancel();
+                cutsceneTimer = null;
+            }
+            trace("StressSongPSlice: Cutscene skipped");
         }
-
-        PS.inCutscene = false;
-        PS.startCountdown();
     }
 
-    public function onSongEndRequest():Bool
-    {
-        // block endSong until cutscene is finished
-        if (PS.inCutscene)
-        {
+    public function onSongEndRequest():Bool {
+        // Prevent auto-ending if still in cutscene
+        if (PS.inCutscene) {
             skipCutscene();
             return true;
         }
         return false;
+    }
+
+    // ── Cutscene setup ───────────────────────────────
+    function startCutscene():Void {
+        PS.inCutscene = true;
+        trace("StressSongPSlice: starting gooey cutscene");
+
+        // Shader effect (optional)
+        var shader = new AdjustColorShader();
+        shader.brightness = -10;
+        shader.saturation = -20;
+        bgSprite.shader = shader;
+
+        // Fake timer that will end cutscene after ~5s
+        cutsceneTimer = new FlxTimer().start(5, function(tmr:FlxTimer) {
+            endCutscene();
+        });
+    }
+
+    function endCutscene():Void {
+        trace("StressSongPSlice: ending gooey cutscene");
+        skipCutscene();
+
+        // Start the song countdown if still in cutscene phase
+        if (PS.inCutscene) PS.inCutscene = false;
+        if (!PS.startedCountdown) {
+            PS.startCountdown();
+        }
     }
 }
