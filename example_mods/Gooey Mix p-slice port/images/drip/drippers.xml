@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="drippers.png">
+<SubTexture name="drippers0000" x="0" y="0" width="1545" height="524" frameX="-213" frameY="-194" frameWidth="1940" frameHeight="936" />
+<SubTexture name="drippers0001" x="0" y="524" width="1546" height="527" frameX="-212" frameY="-192" frameWidth="1940" frameHeight="936" />
+<SubTexture name="drippers0002" x="0" y="1051" width="1544" height="532" frameX="-213" frameY="-187" frameWidth="1940" frameHeight="936" />
+<SubTexture name="drippers0003" x="0" y="1583" width="1546" height="537" frameX="-213" frameY="-182" frameWidth="1940" frameHeight="936" />
+<SubTexture name="drippers0004" x="0" y="2120" width="1544" height="537" frameX="-214" frameY="-181" frameWidth="1940" frameHeight="936" />
+</TextureAtlas>
