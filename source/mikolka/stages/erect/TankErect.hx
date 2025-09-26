@@ -151,7 +151,7 @@ class TankErect extends BaseStage {
 				}
 			}
 		}
-		cutscene ? .preloadCutscene();
+		cutscene ? preloadCutscene();
 	}
 
 	// Hook end song to StressSongPSlice end cutscene
