@@ -1,0 +1,43 @@
+{
+	"camera_boyfriend": [
+		0,
+		0
+	],
+	"preload": {
+		"images/stageback": 3,
+		"images/stagefront": 3,
+		"images/stagecurtains": 2,
+		"images/stage_light": 2
+	},
+	"_editorMeta": {
+		"boyfriend": "gooey-drippy",
+		"dad": "drippypop",
+		"gf": "amoong"
+	},
+	"boyfriend": [
+		890,
+		160
+	],
+	"stageUI": "",
+	"girlfriend": [
+		360,
+		450
+	],
+	"defaultZoom": 0.8,
+	"objects": [],
+	"camera_girlfriend": [
+		0,
+		0
+	],
+	"opponent": [
+		200,
+		120
+	],
+	"directory": "week1",
+	"camera_speed": 1,
+	"hide_girlfriend": false,
+	"camera_opponent": [
+		0,
+		0
+	]
+}
