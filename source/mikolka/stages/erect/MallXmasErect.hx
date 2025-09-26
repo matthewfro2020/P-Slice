@@ -1,167 +1,168 @@
 package mikolka.stages.erect;
 
-import mikolka.stages.scripts.PicoCapableStage;
-import flixel.system.debug.watch.Tracker;
-import mikolka.compatibility.funkin.FunkinPath;
-import shaders.AdjustColorShader;
-import mikolka.compatibility.VsliceOptions;
-#if !LEGACY_PSYCH
+import backend.BaseStage;
+import states.PlayState;
+import objects.Character;
 import substates.GameOverSubstate;
-#end
-// Import Flora
-import objects.FloraSpeakerCharacter;
+
+import mikolka.stages.scripts.PicoCapableStage;
+import mikolka.compatibility.VsliceOptions;
+import shaders.AdjustColorShader;
+
+import mikolka.stages.objects.BGSprites.BGSprite;
+import mikolka.stages.objects.MallCrowd;
+
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.util.FlxTimer;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import flixel.addons.display.FlxAtlasSprite;
 
 class MallXmasErect extends BaseStage {
-	var upperBoppers:BGSprite;
-	var bottomBoppers:MallCrowd;
-	var santa:BGSprite;
+    var upperBoppers:BGSprite;
+    var bottomBoppers:MallCrowd;
+    var santa:BGSprite;
 
-	var erectSanta:FlxAtlasSprite;
-	var erectParents:FlxAtlasSprite;
+    var erectSanta:FlxAtlasSprite;
+    var erectParents:FlxAtlasSprite;
 
-	// Flora
-	var flora:FloraSpeakerCharacter;
+    override function create() {
+        super.create();
 
-	override function create() {
-		var _song = PlayState.SONG;
+        var bg:BGSprite = new BGSprite('christmas/erect/bgWalls', -726, -566, 0.2, 0.2);
+        bg.setGraphicSize(Std.int(bg.width * 0.9));
+        bg.updateHitbox();
+        add(bg);
 
-		var bg:BGSprite = new BGSprite('christmas/erect/bgWalls', -726, -566, 0.2, 0.2);
-		bg.setGraphicSize(Std.int(bg.width * 0.9));
-		bg.updateHitbox();
-		add(bg);
+        if (!VsliceOptions.LOW_QUALITY) {
+            upperBoppers = new BGSprite('christmas/erect/upperBop', -374, -98, 0.28, 0.28, ['upperBop']);
+            upperBoppers.setGraphicSize(Std.int(upperBoppers.width * 0.85));
+            upperBoppers.updateHitbox();
+            add(upperBoppers);
 
-		if (!VsliceOptions.LOW_QUALITY) {
-			upperBoppers = new BGSprite('christmas/erect/upperBop', -374, -98, 0.28, 0.28, ['upperBop']);
-			upperBoppers.setGraphicSize(Std.int(upperBoppers.width * 0.85));
-			upperBoppers.updateHitbox();
-			add(upperBoppers);
+            var bgEscalator:BGSprite = new BGSprite('christmas/erect/bgEscalator', -1100, -540, 0.3, 0.3);
+            bgEscalator.setGraphicSize(Std.int(bgEscalator.width * 0.9));
+            bgEscalator.updateHitbox();
+            add(bgEscalator);
+        }
 
-			var bgEscalator:BGSprite = new BGSprite('christmas/erect/bgEscalator', -1100, -540, 0.3, 0.3);
-			bgEscalator.setGraphicSize(Std.int(bgEscalator.width * 0.9));
-			bgEscalator.updateHitbox();
-			add(bgEscalator);
-		}
+        var tree:BGSprite = new BGSprite('christmas/erect/christmasTree', 370, -250, 0.40, 0.40);
+        add(tree);
 
-		var tree:BGSprite = new BGSprite('christmas/erect/christmasTree', 370, -250, 0.40, 0.40);
-		add(tree);
+        var fog = new BGSprite("christmas/erect/white", -1000, 100, 0.85, 0.85);
+        fog.scale.set(0.9, 0.9);
+        add(fog);
 
-		var fog = new BGSprite("christmas/erect/white", -1000, 100, 0.85, 0.85);
-		fog.scale.set(0.9, 0.9);
-		add(fog);
+        bottomBoppers = new MallCrowd(-300, 140, 'christmas/erect/bottomBop', "bottomBop");
+        add(bottomBoppers);
 
-		bottomBoppers = new MallCrowd(-300, 140, 'christmas/erect/bottomBop', "bottomBop");
-		add(bottomBoppers);
+        var fgSnow:BGSprite = new BGSprite('christmas/erect/fgSnow', -880, 700);
+        add(fgSnow);
 
-		var fgSnow:BGSprite = new BGSprite('christmas/erect/fgSnow', -880, 700);
-		add(fgSnow);
+        santa = new BGSprite('christmas/santa', -840, 150, 1, 1, ['santa idle in fear']);
+        add(santa);
 
-		santa = new BGSprite('christmas/santa', -840, 150, 1, 1, ['santa idle in fear']);
-		add(santa);
-		setDefaultGF('gf-christmas');
+        setDefaultGF('gf-christmas');
 
-		if (songName == "eggnog-(gooey-mix)") {
-			flora = new FloraSpeakerCharacter(600, 350, false);
-			add(flora);
-		}
+        if (songName == "eggnog-erect" || songName == "eggnog-(pico-mix)") {
+            erectSanta = new FlxAtlasSprite(-840 + 380, 150 + 347, "christmas/santa_speaks_assets");
+            erectParents = new FlxAtlasSprite(100 - 620, 100 + 401, "christmas/parents_shoot_assets");
+            setEndCallback(eggnogEndCutscene);
+        }
+    }
 
-		if (songName == "eggnog-erect" || songName == "eggnog-(pico-mix)") {
-			erectSanta = new FlxAtlasSprite(-840 + 380, 150 + 347, "christmas/santa_speaks_assets");
-			erectParents = new FlxAtlasSprite(100 - 620, 100 + 401, "christmas/parents_shoot_assets");
-			setEndCallback(eggnogEndCutscene);
-		}
-	}
+    override function createPost() {
+        super.createPost();
 
-	override function createPost() {
-		super.createPost();
-		if (VsliceOptions.SHADERS) {
-			var colorShader = new AdjustColorShader();
-			colorShader.hue = 5;
-			colorShader.saturation = 20;
+        if (VsliceOptions.SHADERS) {
+            var colorShader = new AdjustColorShader();
+            colorShader.hue = 5;
+            colorShader.saturation = 20;
 
-			boyfriend.shader = colorShader;
-			gf.shader = colorShader;
-			dad.shader = colorShader;
-			santa.shader = colorShader;
-			flora.shader = colorShader; // 🌟 give Flora shader as well
-			if (erectSanta != null) {
-				erectSanta.shader = santa.shader;
-				erectParents.shader = santa.shader;
-			}
-			PicoCapableStage.instance ? .applyABotShader(colorShader);
-		}
+            boyfriend.shader = colorShader;
+            gf.shader = colorShader;
+            dad.shader = colorShader;
+            santa.shader = colorShader;
 
-		@:privateAccess
-		if (PicoCapableStage.NENE_LIST.contains(PlayState.SONG.gfVersion))
-			GameOverSubstate.characterName = 'pico-christmas-dead';
-	}
+            if (erectSanta != null) {
+                erectSanta.shader = santa.shader;
+                erectParents.shader = santa.shader;
+            }
 
-	override function countdownTick(count:Countdown, num:Int)
-		everyoneDance();
+            if (PicoCapableStage.instance != null) {
+                PicoCapableStage.instance.applyABotShader(colorShader);
+            }
+        }
 
-	override function beatHit() {
-		super.beatHit();
-		everyoneDance();
-	}
+        if (PicoCapableStage.NENE_LIST.contains(PlayState.SONG.gfVersion))
+            GameOverSubstate.characterName = 'pico-christmas-dead';
+    }
 
-	override function eventCalled(eventName:String, value1:String, value2:String, flValue1:Null<Float>, flValue2:Null<Float>, strumTime:Float) {
-		switch (eventName) {
-			case "Hey!":
-				switch (value1.toLowerCase().trim()) {
-					case 'bf' | 'boyfriend' | '0':
-						return;
-				}
-				bottomBoppers.animation.play('hey', true);
-				bottomBoppers.heyTimer = flValue2;
-		}
-	}
+    override function countdownTick(count:Countdown, num:Int) {
+        everyoneDance();
+    }
 
-	function everyoneDance() {
-		if (!VsliceOptions.LOW_QUALITY)
-			upperBoppers.dance();
+    override function beatHit() {
+        super.beatHit();
+        everyoneDance();
+    }
 
-		bottomBoppers.dance();
-		santa.dance();
-		if (flora != null)
-			flora.dance(); // safe null-check
-	}
+    override function eventCalled(eventName:String, value1:String, value2:String, flValue1:Null<Float>, flValue2:Null<Float>, strumTime:Float) {
+        switch (eventName) {
+            case "Hey!":
+                switch (value1.toLowerCase().trim()) {
+                    case 'bf' | 'boyfriend' | '0':
+                        return;
+                }
+                bottomBoppers.animation.play('hey', true);
+                bottomBoppers.heyTimer = flValue2;
+        }
+    }
 
-	function eggnogEndCutscene() {
-		remove(santa);
-		dad.visible = false;
-		canPause = false;
-		game.endingSong = true;
-		add(erectParents);
-		add(erectSanta);
+    function everyoneDance() {
+        if (!VsliceOptions.LOW_QUALITY)
+            upperBoppers.dance();
 
-		erectSanta.playAnimation("santa whole scene", false, false, false, 0);
-		erectParents.playAnimation("parents whole scene", false, false, false, 0);
-		FlxG.sound.play(Paths.sound("santa_emotion"));
-		erectSanta.onAnimationComplete.add(s -> erectSanta.anim.pause());
-		erectParents.onAnimationComplete.add(s -> erectParents.anim.pause());
+        bottomBoppers.dance();
+        santa.dance();
+    }
 
-		new FlxTimer().start(2.8, function(tmr) {
-			camFollow_set(erectSanta.x + 150, erectSanta.y);
-			FlxTween.tween(camGame, {zoom: 0.79}, 9, {
-				ease: FlxEase.quadInOut
-			});
-		});
+    function eggnogEndCutscene() {
+        remove(santa);
+        dad.visible = false;
+        canPause = false;
+        game.endingSong = true;
+        add(erectParents);
+        add(erectSanta);
 
-		new FlxTimer().start(11.375, function(tmr) {
-			FlxG.sound.play(Paths.sound('santa_shot_n_falls'));
-		});
+        erectSanta.playAnimation("santa whole scene", false, false, false, 0);
+        erectParents.playAnimation("parents whole scene", false, false, false, 0);
+        FlxG.sound.play(Paths.sound("santa_emotion"));
+        erectSanta.onAnimationComplete.add(s -> erectSanta.anim.pause());
+        erectParents.onAnimationComplete.add(s -> erectParents.anim.pause());
 
-		new FlxTimer().start(12.83, function(tmr) {
-			camGame.shake(0.005, 0.2);
-			camFollow_set(erectSanta.x + 160, erectSanta.y + 80);
-		});
+        new FlxTimer().start(2.8, function(tmr) {
+            camFollow_set(erectSanta.x + 150, erectSanta.y);
+            FlxTween.tween(camGame, {zoom: 0.79}, 9, {ease: FlxEase.quadInOut});
+        });
 
-		new FlxTimer().start(15, function(tmr) {
-			camHUD.fade(0xFF000000, 1, false, null, true);
-		});
+        new FlxTimer().start(11.375, function(tmr) {
+            FlxG.sound.play(Paths.sound('santa_shot_n_falls'));
+        });
 
-		new FlxTimer().start(16, function(tmr) {
-			camHUD.fade(0xFF000000, 0.5, true, null, true);
-			endSong();
-		});
-	}
+        new FlxTimer().start(12.83, function(tmr) {
+            camGame.shake(0.005, 0.2);
+            camFollow_set(erectSanta.x + 160, erectSanta.y + 80);
+        });
+
+        new FlxTimer().start(15, function(tmr) {
+            camHUD.fade(0xFF000000, 1, false, null, true);
+        });
+
+        new FlxTimer().start(16, function(tmr) {
+            camHUD.fade(0xFF000000, 0.5, true, null, true);
+            endSong();
+        });
+    }
 }
