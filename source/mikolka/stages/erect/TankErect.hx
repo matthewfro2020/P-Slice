@@ -9,9 +9,9 @@ import mikolka.stages.scripts.StressSongPSlice;
 import mikolka.compatibility.VsliceOptions;
 import shaders.DropShadowShader;
 
-import backend.Character;
-import backend.GameOverSubstate;
-import backend.PlayState;
+import objects.Character;
+import substates.GameOverSubstate;
+import states.PlayState;
 import backend.BaseStage;
 
 import flixel.FlxG;
