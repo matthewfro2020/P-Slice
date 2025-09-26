@@ -1,34 +1,45 @@
 package mikolka.stages.erect;
 
+import mikolka.compatibility.VsliceOptions;
 import shaders.AdjustColorShader;
-import backend.BaseStage;
 import states.PlayState;
-import objects.Character;
 
-import flixel.addons.display.FlxBackdrop;
-import flixel.FlxSprite;
 import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.addons.display.FlxBackdrop;
 
-class DrippyPopErectStage extends BaseStage {
+import backend.BaseStage;
+
+/**
+ * DrippyPop Erect special stage.
+ * Includes animated mist layers + shaders.
+ */
+class DrippyPopErectStage extends BaseStage
+{
     var singDir:Array<String> = ['LEFT', 'DOWN', 'UP', 'RIGHT'];
 
+    // Shaders
     var colorShaderBf:AdjustColorShader;
     var colorShaderDad:AdjustColorShader;
     var colorShaderGf:AdjustColorShader;
 
+    // Mist layers
     var mist0:FlxBackdrop;
     var mist1:FlxBackdrop;
     var mist2:FlxBackdrop;
 
     var _timer:Float = 0;
 
-    public function new() {
-        super("Drippypop Erect Stage");
+    public function new()
+    {
+        super();
     }
 
-    override function create() {
+    override function create()
+    {
         super.create();
 
+        // ── Static background props ───────────────────────────
         var alley:FlxSprite = new FlxSprite(-260, -650);
         alley.frames = Paths.getSparrowAtlas("drip/ngErect");
         alley.scrollFactor.set(1, 1);
@@ -49,17 +60,20 @@ class DrippyPopErectStage extends BaseStage {
         shading.zIndex = 100;
         add(shading);
 
+        // ── Shaders for characters ───────────────────────────
         colorShaderBf = new AdjustColorShader();
         colorShaderDad = new AdjustColorShader();
         colorShaderGf = new AdjustColorShader();
 
-        for (shader in [colorShaderBf, colorShaderDad, colorShaderGf]) {
+        for (shader in [colorShaderBf, colorShaderDad, colorShaderGf])
+        {
             shader.brightness = -5;
             shader.hue = -26;
             shader.contrast = 0;
             shader.saturation = -12;
         }
 
+        // ── Mist overlays ────────────────────────────────────
         mist0 = new FlxBackdrop(Paths.image('drip/mistBack'), 0x01);
         mist0.setPosition(-650, -700);
         mist0.scrollFactor.set(1.2, 1.2);
@@ -91,9 +105,11 @@ class DrippyPopErectStage extends BaseStage {
         refresh();
     }
 
-    override function createPost() {
+    override function createPost()
+    {
         super.createPost();
 
+        // Character positions & camera offsets
         getBoyfriend().setPosition(1350, 320);
         getBoyfriend().cameraOffset.set(-200, -100);
         getBoyfriend().zIndex = 80;
@@ -103,16 +119,19 @@ class DrippyPopErectStage extends BaseStage {
         getDad().zIndex = 70;
 
         getGirlfriend().setPosition(1030, 363);
+        getGirlfriend().cameraOffset.set(0, 0);
         getGirlfriend().zIndex = 60;
 
         refresh();
     }
 
-    override function getDefaultCamZoom():Float {
-        return 0.9;
+    override function getDefaultCamZoom():Float
+    {
+        return 0.9; // from stage JSON
     }
 
-    override function update(elapsed:Float) {
+    override function update(elapsed:Float):Void
+    {
         super.update(elapsed);
 
         _timer += elapsed;
@@ -124,35 +143,33 @@ class DrippyPopErectStage extends BaseStage {
         var gf = getGirlfriend();
         var dad = getDad();
 
-        if (bf != null && bf.shader == null) {
+        if (bf != null && bf.shader == null)
+        {
             bf.shader = colorShaderBf;
             if (gf != null) gf.shader = colorShaderGf;
             if (dad != null) dad.shader = colorShaderDad;
         }
     }
 
-    override function beatHit() {
+    override function beatHit()
+    {
         super.beatHit();
-        if (curBeat <= 283) {
+        if (curBeat <= 283)
+        {
             getGirlfriend().playAnimation('idle-alt', false, false);
         }
     }
 
-    override function countdownStart() {
-        super.countdownStart();
+    override function countdownTick(count:Countdown, num:Int)
+    {
+        super.countdownTick(count, num);
         refresh();
         getGirlfriend().playAnimation('idle-alt', false, false);
     }
 
-    override function noteHit(note:Note) {
-        if (note != null && note.mustPress && note.noteType == "gfsing") {
-            Gfsing(note.noteData, false);
-            return;
-        }
-        super.noteHit(note);
-    }
-
-    public function Gfsing(dir:Int, miss:Bool = false, ?suffix:String = '') {
+    // Handles GF singing notes (replaces old NoteHitEvent code)
+    public function gfSing(dir:Int, miss:Bool = false, ?suffix:String = '')
+    {
         var anim:String = 'sing' + singDir[dir];
         getGirlfriend().playAnimation(anim, true, true);
     }
