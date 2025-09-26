@@ -22,6 +22,8 @@ class MallXmasErect extends BaseStage
 	var erectParents:FlxAtlasSprite;
 
 	// Flora
+	var flora:FloraSpeakerCharacter;
+
 	override function create()
 	{
 		var _song = PlayState.SONG;
