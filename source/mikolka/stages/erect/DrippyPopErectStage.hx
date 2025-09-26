@@ -1,13 +1,21 @@
 package mikolka.stages.erect;
 
-import funkin.graphics.shaders.AdjustColorShader;
-import funkin.play.stage.Stage;
-import funkin.play.PlayState;
-import flixel.addons.display.FlxBackdrop;
-import flixel.FlxSprite;
-import flixel.FlxG;
+import mikolka.compatibility.VsliceOptions;
+import shaders.AdjustColorShader;
+import states.PlayState;
 
-class DrippyPopErectStage extends Stage
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.addons.display.FlxBackdrop;
+import flixel.FlxCamera;
+
+import backend.BaseStage;
+
+/**
+ * DrippyPop Erect special stage.
+ * Includes animated mist layers + shaders.
+ */
+class DrippyPopErectStage extends BaseStage
 {
     var singDir:Array<String> = ['LEFT', 'DOWN', 'UP', 'RIGHT'];
 
@@ -25,12 +33,12 @@ class DrippyPopErectStage extends Stage
 
     public function new()
     {
-        super("Drippypop Erect Stage");
+        super();
     }
 
-    override function buildStage():Void
+    override function create()
     {
-        super.buildStage();
+        super.create();
 
         // ── Static background props ───────────────────────────
         var alley:FlxSprite = new FlxSprite(-260, -650);
@@ -94,33 +102,30 @@ class DrippyPopErectStage extends Stage
         mist2.velocity.x = -50;
         mist2.scale.set(0.8, 0.8);
         add(mist2);
-
-        refresh();
     }
 
-    override function buildCharacters():Void
+    override function createPost()
     {
-        super.buildCharacters();
+        super.createPost();
 
-        // Character positions & camera offsets
-        getBoyfriend().setPosition(1350, 320);
-        getBoyfriend().cameraOffset.set(-200, -100);
-        getBoyfriend().zIndex = 80;
+        // Character positions (P-Slice: set x/y directly, no cameraOffset)
+        PlayState.instance.boyfriend.x = 1350;
+        PlayState.instance.boyfriend.y = 320;
+        PlayState.instance.boyfriend.zIndex = 80;
 
-        getDad().setPosition(700, 250);
-        getDad().cameraOffset.set(200, -20);
-        getDad().zIndex = 70;
+        PlayState.instance.dad.x = 700;
+        PlayState.instance.dad.y = 250;
+        PlayState.instance.dad.zIndex = 70;
 
-        getGirlfriend().setPosition(1030, 363);
-        getGirlfriend().cameraOffset.set(0, 0);
-        getGirlfriend().zIndex = 60;
-
-        refresh();
+        PlayState.instance.gf.x = 1030;
+        PlayState.instance.gf.y = 363;
+        PlayState.instance.gf.zIndex = 60;
     }
 
-    override function getDefaultCamZoom():Float
+    // P-Slice expects FlxCamera here, not Float
+    override function getDefaultCamera():FlxCamera
     {
-        return 0.9; // from stage JSON
+        return FlxG.camera;
     }
 
     override function update(elapsed:Float):Void
@@ -132,9 +137,9 @@ class DrippyPopErectStage extends Stage
         mist1.y = -100 + (Math.sin(_timer * 0.3) * 80);
         mist2.y = -430 + (Math.sin(_timer * 0.3) * 70);
 
-        var bf = getBoyfriend();
-        var gf = getGirlfriend();
-        var dad = getDad();
+        var bf = PlayState.instance.boyfriend;
+        var gf = PlayState.instance.gf;
+        var dad = PlayState.instance.dad;
 
         if (bf != null && bf.shader == null)
         {
@@ -144,40 +149,28 @@ class DrippyPopErectStage extends Stage
         }
     }
 
-    override function onBeatHit(event:SongTimeScriptEvent):Void
+    override function beatHit()
     {
-        super.onBeatHit(event);
-        if (event.beat <= 283)
+        super.beatHit();
+        if (curBeat <= 283)
         {
-            getGirlfriend().playAnimation('idle-alt', false, false);
+            if (PlayState.instance.gf != null && PlayState.instance.gf.hasAnimation("idle-alt"))
+                PlayState.instance.gf.playAnim("idle-alt", false);
         }
     }
 
-    override function onCountdownStart(event:CountdownScriptEvent):Void
+    override function countdownTick(count:Countdown, num:Int)
     {
-        super.onCountdownStart(event);
-        refresh();
-        getGirlfriend().playAnimation('idle-alt', false, false);
+        super.countdownTick(count, num);
+        if (PlayState.instance.gf != null && PlayState.instance.gf.hasAnimation("idle-alt"))
+            PlayState.instance.gf.playAnim("idle-alt", false);
     }
 
-    override function onNoteHit(event:HitNoteScriptEvent):Void
-    {
-        if (event.note.noteData.getMustHitNote())
-        {
-            switch (event.note.kind)
-            {
-                case "gfsing":
-                    holdTimer = 0;
-                    Gfsing(event.note.noteData.getDirection(), false);
-                    return;
-            }
-        }
-        super.onNoteHit(event);
-    }
-
-    public override function Gfsing(dir:Int, miss:Bool = false, ?suffix:String = ''):Void
+    // Handles GF singing notes
+    public function gfSing(dir:Int, miss:Bool = false, ?suffix:String = '')
     {
         var anim:String = 'sing' + singDir[dir];
-        getGirlfriend().playAnimation(anim, true, true);
+        if (PlayState.instance.gf != null && PlayState.instance.gf.hasAnimation(anim))
+            PlayState.instance.gf.playAnim(anim, true);
     }
 }

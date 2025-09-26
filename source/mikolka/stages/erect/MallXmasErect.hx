@@ -1,15 +1,22 @@
 package mikolka.stages.erect;
 
 import mikolka.stages.scripts.PicoCapableStage;
-import flixel.system.debug.watch.Tracker;
-import mikolka.compatibility.funkin.FunkinPath;
 import shaders.AdjustColorShader;
 import mikolka.compatibility.VsliceOptions;
 #if !LEGACY_PSYCH
 import substates.GameOverSubstate;
 #end
-// Import Flora
+
+// Corrected imports
+import objects.BGSprite;
+import states.stages.objects.MallCrowd;
 import objects.FloraSpeakerCharacter;
+
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import flixel.util.FlxTimer;
 
 class MallXmasErect extends BaseStage {
 	var upperBoppers:BGSprite;
@@ -82,12 +89,13 @@ class MallXmasErect extends BaseStage {
 			gf.shader = colorShader;
 			dad.shader = colorShader;
 			santa.shader = colorShader;
-			flora.shader = colorShader; // 🌟 give Flora shader as well
+			if (flora != null) flora.shader = colorShader; // 🌟 safe shader
 			if (erectSanta != null) {
 				erectSanta.shader = santa.shader;
 				erectParents.shader = santa.shader;
 			}
-			PicoCapableStage.instance ? .applyABotShader(colorShader);
+			if (PicoCapableStage.instance != null)
+				PicoCapableStage.instance.applyABotShader(colorShader);
 		}
 
 		@:privateAccess
@@ -121,8 +129,7 @@ class MallXmasErect extends BaseStage {
 
 		bottomBoppers.dance();
 		santa.dance();
-		if (flora != null)
-			flora.dance(); // safe null-check
+		if (flora != null) flora.dance();
 	}
 
 	function eggnogEndCutscene() {
@@ -141,9 +148,7 @@ class MallXmasErect extends BaseStage {
 
 		new FlxTimer().start(2.8, function(tmr) {
 			camFollow_set(erectSanta.x + 150, erectSanta.y);
-			FlxTween.tween(camGame, {zoom: 0.79}, 9, {
-				ease: FlxEase.quadInOut
-			});
+			FlxTween.tween(camGame, {zoom: 0.79}, 9, { ease: FlxEase.quadInOut });
 		});
 
 		new FlxTimer().start(11.375, function(tmr) {
