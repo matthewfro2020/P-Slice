@@ -1,20 +1,18 @@
 {
   "version": "2.2.4",
   "timeFormat": "ms",
-  "artist": "LeGooey (EthanTheDoolder, NeatoNG, Lil Nas X)",
+  "artist": "LeGooey (Original by: EthanTheDoodler, NeatoNG, Lil Nas X)",
   "charter": "LeGooey",
   "playData": {
     "stage": "drippypopErect",
     "characters": {
       "player": "gooey-drippy",
       "girlfriend": "pico-drippy",
-      "opponent": "drippypop",
-      "instrumental": "gooey",
-      "altInstrumentals": [""]
+      "opponent": "drippypop"
     },
     "songVariations": [],
-    "difficulties": ["easy", "normal", "hard"],
-    "ratings": { "easy": 8, "normal": 10, "hard": 12},
+    "difficulties": ["extra"],
+    "ratings": { "extra": 10},
     "noteStyle": "funkin",
     "album": "gooeyDrip",
     "previewStart": 0,

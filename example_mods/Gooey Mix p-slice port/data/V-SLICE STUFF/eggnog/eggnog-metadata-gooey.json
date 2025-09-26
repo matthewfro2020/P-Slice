@@ -7,7 +7,7 @@
     "stage": "mallXmasErect",
     "characters": {
       "player": "gooey-christmas",
-      "girlfriend": "speaker-christmas",
+      "girlfriend": "flora-speaker-christmas",
       "opponent": "parents-christmas",
       "instrumental": "gooey",
       "altInstrumentals": ["pico",""],
@@ -19,7 +19,7 @@
       ]
     },
     "songVariations": ["erect", "pico","gooey"],
-    "ratings": { "easy": 3, "normal": 4, "hard": 6 },
+    "ratings": { "easy": 3, "normal": 4, "hard": 5 },
     "difficulties": ["easy", "normal", "hard"],
     "noteStyle": "funkin",
     "album": "gooeymix1",

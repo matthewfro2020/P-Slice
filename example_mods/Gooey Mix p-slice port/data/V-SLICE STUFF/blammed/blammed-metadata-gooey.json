@@ -7,14 +7,14 @@
     "stage": "phillyTrainErect",
     "characters": {
       "player": "gooey",
-      "girlfriend": "speaker",
+      "girlfriend": "flora-speaker",
       "opponent": "pico",
       "altInstrumentals": ["pico",""],
       "instrumental": "gooey"
     },
     "songVariations": ["erect", "pico","gooey"],
     "difficulties": ["easy", "normal", "hard"],
-    "ratings": { "easy": 6, "normal": 7, "hard": 8},
+    "ratings": { "easy": 3, "normal": 4, "hard": 5},
     "noteStyle": "funkin",
     "album": "gooeymix1",
     "previewStart": 0,

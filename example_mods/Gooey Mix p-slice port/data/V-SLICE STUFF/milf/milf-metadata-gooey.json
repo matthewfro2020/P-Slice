@@ -12,7 +12,7 @@
     "difficulties": ["easy", "normal", "hard"],
     "characters": {
       "player": "gooey-car",
-      "girlfriend": "speaker",
+      "girlfriend": "flora-speaker",
       "opponent": "mom-car",
       "instrumental": "gooey",
       "altInstrumentals": [""],
@@ -23,9 +23,9 @@
         "gooey"
       ]
     },
-    "stage": "limoRideErect",
+    "stage": "limoRideErectGooey",
     "noteStyle": "funkin",
-    "ratings": { "easy": 7, "normal": 9, "hard": 11 },
+    "ratings": { "easy": 5, "normal": 6, "hard": 7 },
     "album": "gooeymix1",
     "previewStart": 0,
     "previewEnd": 15000

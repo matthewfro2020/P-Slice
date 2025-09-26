@@ -1,16 +1,16 @@
 {
   "version": "2.2.4",
   "timeFormat": "ms",
-  "artist": "LeGooey",
+  "artist": "HEV",
   "charter": "LeGooey",
   "playData": {
-    "stage": "tankmanBattlefield",
+    "stage": "tankmanBattlefieldErect",
     "characters": {
-      "player": "gooey",
-      "girlfriend": "pico-speaker",
-      "opponent": "tankman",
+      "player": "gooey-stress",
+      "girlfriend": "kam-speaker-stress",
+      "opponent": "tankman-gooey",
       "instrumental": "gooey",
-      "altInstrumentals": [""],
+      "altInstrumentals": ["","pico","gooey-old"],
       "opponentVocals": [
         "tankman"
       ],
@@ -19,14 +19,15 @@
       ]
     },
     "songVariations": ["gooey"],
-    "ratings": { "easy": 8, "normal": 10, "hard": 13},
+    "ratings": { "easy": 5, "normal": 6, "hard": 7},
     "difficulties": ["easy", "normal", "hard"],
     "noteStyle": "funkin",
-    "album": "gooeymix1",
+    "stickerPack": "bonus-stressGooey",
+    "album": "gooeyex1",
     "previewStart": 0,
     "previewEnd": 15000
   },
   "songName": "Stress (Gooey Mix)",
-  "timeChanges": [{ "d": 4, "n": 4, "t": -1, "bt": [4, 4, 4, 4], "bpm": 150 }],
+  "timeChanges": [{ "d": 4, "n": 4, "t": -1, "bt": [4, 4, 4, 4], "bpm": 178}],
   "generatedBy": "Chart Editor Import (FNF Legacy)"
 }
