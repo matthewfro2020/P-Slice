@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="gooeypixel.png">
+<SubTexture name="confirm0000" x="0" y="0" width="34" height="31" frameX="-5" frameY="-14" frameWidth="50" frameHeight="50" />
+<SubTexture name="confirm0001" x="0" y="31" width="36" height="30" frameX="-4" frameY="-15" frameWidth="50" frameHeight="50" />
+<SubTexture name="confirm0002" x="0" y="61" width="32" height="34" frameX="-6" frameY="-12" frameWidth="50" frameHeight="50" />
+<SubTexture name="confirm0003" x="0" y="95" width="34" height="32" frameX="-5" frameY="-13" frameWidth="50" frameHeight="50" />
+<SubTexture name="idle0000" x="0" y="0" width="34" height="31" frameX="-5" frameY="-15" frameWidth="50" frameHeight="50" />
+<SubTexture name="confirm-hold0000" x="0" y="95" width="34" height="32" frameX="-5" frameY="-13" frameWidth="50" frameHeight="50" />
+</TextureAtlas>

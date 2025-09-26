@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="gooeymix1-text.png">
+	<SubTexture name="idle0001" x="1" y="4" width="300" height="137" frameX="0" frameY="0" frameWidth="300" frameHeight="142"/>
+	<SubTexture name="idle0002" x="1" y="4" width="300" height="137" frameX="0" frameY="0" frameWidth="300" frameHeight="142"/>
+	<SubTexture name="idle0003" x="1" y="4" width="300" height="137" frameX="0" frameY="0" frameWidth="300" frameHeight="142"/>
+	<SubTexture name="idle0004" x="1" y="4" width="300" height="137" frameX="0" frameY="0" frameWidth="300" frameHeight="142"/>
+	<SubTexture name="switch0001" x="1" y="145" width="300" height="137" frameX="0" frameY="-5" frameWidth="300" frameHeight="142"/>
+	<SubTexture name="switch0002" x="1" y="145" width="300" height="137" frameX="0" frameY="-5" frameWidth="300" frameHeight="142"/>
+	<SubTexture name="switch0003" x="1" y="145" width="300" height="137" frameX="0" frameY="-5" frameWidth="300" frameHeight="142"/>
+	<SubTexture name="switch0004" x="1" y="145" width="300" height="137" frameX="0" frameY="-5" frameWidth="300" frameHeight="142"/>
+</TextureAtlas>
