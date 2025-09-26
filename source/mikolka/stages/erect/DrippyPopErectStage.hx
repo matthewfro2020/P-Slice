@@ -167,7 +167,10 @@ class DrippyPopErectStage extends BaseStage
         getGirlfriend().playAnimation('idle-alt', false, false);
     }
 
-    // Handles GF singing notes (replaces old NoteHitEvent code)
+    /**
+     * Called manually by PlayState when GF needs to sing.
+     * Replaces the old NoteHitEvent system.
+     */
     public function gfSing(dir:Int, miss:Bool = false, ?suffix:String = '')
     {
         var anim:String = 'sing' + singDir[dir];
