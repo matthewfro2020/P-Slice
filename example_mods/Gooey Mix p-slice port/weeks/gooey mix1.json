@@ -1,0 +1,63 @@
+{
+	"storyName": "Your New Week",
+	"difficulties": "Hard",
+	"hideFreeplay": false,
+	"weekBackground": "stage",
+	"weekBefore": "tutorial",
+	"startUnlocked": true,
+	"hideStoryMode": true,
+	"songs": [
+		[
+			"Fresh (gooey mix)",
+			"dad",
+			[
+				146,
+				113,
+				253
+			]
+		],
+		[
+			"blammed (gooey mix)",
+			"pico",
+			[
+				86,
+				253,
+				55
+			]
+		],
+		[
+			"milf (gooey mix)",
+			"mom",
+			[
+				206,
+				113,
+				193
+			]
+		],
+		[
+			"eggnog (gooey mix)",
+			"parents",
+			[
+				166,
+				113,
+				253
+			]
+		],
+		[
+			"stress (gooey mix)",
+			"tankman",
+			[
+				235,
+				253,
+				255
+			]
+		]
+	],
+	"weekCharacters": [
+		"dad",
+		"bf",
+		"gf"
+	],
+	"hiddenUntilUnlocked": false,
+	"weekName": "Custom Week"
+}
